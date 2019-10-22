@@ -1,17 +1,22 @@
 package BusinessModel;
 
-import BusinessModel.Assets.Asset;
-import BusinessModel.Trading.CFD;
-import BusinessModel.User.User;
-
-import java.util.Map;
+import BusinessModel.User.*;
+import BusinessModel.Assets.*;
+import BusinessModel.Trading.*;
 
 public class ESSTrading {
-    private Map<String, User> users;
-    private Map<String, Asset> assets;
-    private Map<Integer, CFD> cfds;
 
-    public static void main(String[] args) {
+	private java.util.Map<String, User> users;
+	private java.util.Map<String, Asset> assets;
+	private java.util.Map<Integer, CFD> cfds;
 
-    }
+	/**
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO - implement ESSTrading.main
+		throw new UnsupportedOperationException();
+	}
+
 }
