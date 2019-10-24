@@ -20,8 +20,4 @@ public class Admin extends User {
 	public List<Asset> checkMarket(){
 		throw new UnsupportedOperationException();
 	}
-
-	public List<Bug> getBugsList(){
-		throw new UnsupportedOperationException();
-	}
 }
