@@ -29,7 +29,7 @@ public class AssetDAO implements DAO<Asset> {
                 PreparedStatement pStm = con.prepareStatement("select * from Asset");
                 ResultSet rs = pStm.executeQuery();
                 while(rs.next()) {
-                    //TODO verificar que é assim que se vai buscar um enum ou mudan na BD o tipo
+                    //TODO verificar que é assim que se vai buscar um enum ou mudar na BD o tipo
                     if(rs.getString("Type").equals("coin")){
                         assets.add(new Asset(rs.getInt("idAsset"), rs.getDouble("Value"),
                               rs.getString("Company"), AssetType.COIN));
@@ -49,7 +49,7 @@ public class AssetDAO implements DAO<Asset> {
         } finally {
             Connect.close(con);
         }
-        return new ArrayList<>();
+        return assets;
     }
 
     @Override
