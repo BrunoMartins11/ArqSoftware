@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class CFDdao implements DAO<CFD> {
 
     public List<CFD> getAllByPortfolio(int idPortfolio) {
         List<CFD> cfds = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         try {
             con = connect();
             if(con != null) {
@@ -41,21 +43,18 @@ public class CFDdao implements DAO<CFD> {
                 ResultSet rs1 = pStm1.executeQuery();
 
                 while(rs1.next()) {
-                    PreparedStatement pStm2 = con.prepareStatement("select * from CFD_has_Asset where CFD_idCFD=?");
-                    pStm2.setInt(1, rs1.getInt("idCFD"));
-                    ResultSet rs2 = pStm2.executeQuery();
                     if(rs1.getString("Position").equals("short")) {
                         cfds.add(new CFD(rs1.getInt("idCFD"),
                                 rs1.getDouble("TakeProfit"), rs1.getDouble("StopLoss"),
                                 rs1.getDouble("AquisitionPrice"), rs1.getDouble("Quantity"),
-                                new LocalDateTime(rs1.getString("Date")), //ERRO AQUI DE DATAS
-                                Position.SHORT, rs2.getInt("Asset_idAsset")));
+                                LocalDateTime.parse(rs1.getString("Date"), formatter),
+                                Position.SHORT, rs1.getInt("Asset_idAsset")));
                     } else {
                         cfds.add(new CFD(rs1.getInt("idCFD"),
                                 rs1.getDouble("TakeProfit"), rs1.getDouble("StopLoss"),
                                 rs1.getDouble("AquisitionPrice"), rs1.getDouble("Quantity"),
-                                new LocalDateTime(rs1.getString("Date")), //ERRO AQUI DE DATAS
-                                Position.LONG, rs2.getInt("Asset_idAsset")));
+                                LocalDateTime.parse(rs1.getString("Date"), formatter),
+                                Position.LONG, rs1.getInt("Asset_idAsset")));
                     }
                 }
             }

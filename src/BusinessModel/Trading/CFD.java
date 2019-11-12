@@ -7,6 +7,17 @@ import java.time.LocalDateTime;
 public class CFD {
 
 
+	private int id;
+	private Double takeProfit;
+	private Double stopLoss;
+	private Double priceAcquisition;
+	private Double quantity;
+	private java.time.LocalDateTime date;
+	private Position position;
+	private int assetID;
+
+
+
 
 	public CFD(int id, Double takeProfit, Double stopLoss, Double priceAcquisition, Double quantity, LocalDateTime date, Position position, int assetID) {
 		this.id = id;
@@ -18,15 +29,6 @@ public class CFD {
 		this.position = position;
 		this.assetID = assetID;
 	}
-
-	private int id;
-	private Double takeProfit;
-	private Double stopLoss;
-	private Double priceAcquisition;
-	private Double quantity;
-	private java.time.LocalDateTime date;
-	private Position position;
-	private int assetID;
 
 	public CFD() {
 		// TODO - implement CFD.CFD
