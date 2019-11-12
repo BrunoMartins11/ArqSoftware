@@ -3,10 +3,13 @@ package Data;
 import BusinessModel.Trading.Portfolio;
 import BusinessModel.User.Investor;
 
+import javax.sound.sampled.Port;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +27,14 @@ public class PortfolioDAO implements DAO<Portfolio> {
                 pStm.setInt(1, id);
                 ResultSet rs = pStm.executeQuery();
                 if (rs.next()) {
-                    return new Portfolio();
+                    List<Integer> idCFDs = new ArrayList<>();
+                    PreparedStatement pStm2 = con.prepareStatement("select * from Portfolio_has_Asset where Portfolio_idPortfolio=?");
+                    pStm.setInt(1, id);
+                    ResultSet rs2 = pStm.executeQuery();
+                    while(rs2.next()){
+                        idCFDs.add(rs2.getInt("Asset_idAsset"));
+                    }
+                    return new Portfolio(rs.getInt("idPortfolio"), idCFDs);
                 }
             }
         } catch (SQLException e) {
@@ -37,7 +47,29 @@ public class PortfolioDAO implements DAO<Portfolio> {
 
     @Override
     public List<Portfolio> getAll() {
-        return null;
+        List<Portfolio> port = new ArrayList<>();
+        try {
+            con = connect();
+            if(con != null) {
+                PreparedStatement pStm = con.prepareStatement("select * from Portfolio");
+                ResultSet rs = pStm.executeQuery();
+                while(rs.next()) {
+                    List<Integer> idCFDs = new ArrayList<>();
+                    PreparedStatement pStm2 = con.prepareStatement("select * from Portfolio_has_Asset where Portfolio_idPortfolio=?");
+                    pStm2.setInt(1, rs.getInt("idPortfolio"));
+                    ResultSet rs2 = pStm.executeQuery();
+                    while(rs2.next()){
+                        idCFDs.add(rs2.getInt("Asset_idAsset"));
+                    }
+                    port.add(new Portfolio(rs.getInt("idPortfolio"), idCFDs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connect.close(con);
+        }
+        return port;
     }
 
     @Override
