@@ -68,4 +68,8 @@ public class Investor extends User {
 	public Bug reportBug(String text){
 		throw new UnsupportedOperationException();
 	}
+
+	public int getPortfolioId(){
+		return this.portfolio.getId();
+	}
 }

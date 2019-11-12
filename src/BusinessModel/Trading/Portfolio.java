@@ -30,4 +30,8 @@ public class Portfolio {
 	public List<Integer> getAllCFD(){
 		throw new UnsupportedOperationException();
 	}
+
+	public int getId() {
+		return id;
+	}
 }

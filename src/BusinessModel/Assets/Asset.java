@@ -25,8 +25,7 @@ public class Asset {
 	}
 
 	public String getCompany() {
-		// TODO - implement Asset.getCompany
-		throw new UnsupportedOperationException();
+		return this.company;
 	}
 
 	public AssetType getType() {
