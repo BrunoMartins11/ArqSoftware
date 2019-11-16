@@ -9,7 +9,7 @@ public class Investor extends User {
 
 	private Double credit;
 	private Portfolio portfolio;
-	private Collection<Asset> watchList;
+	private List<Integer> watchList;
 
 	public Investor(int id, String username, String email, String password, Portfolio p, Double credit) {
 		super(id, username, email, password);

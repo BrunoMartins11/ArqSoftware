@@ -1,17 +1,13 @@
 package Data;
 
 import BusinessModel.Trading.Portfolio;
-import BusinessModel.User.Investor;
 
-import javax.sound.sampled.Port;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 import static Data.Connect.connect;
 
