@@ -5,7 +5,7 @@ import Presentation.User.UserFacade;
 public class SharedFacade
 {
     private Presentation.Shared.Registration registration;
-    private Presentation.Shared.StartupMenu startMenu;
+    private StartupMenu startMenu;
     private Presentation.Shared.Login login;
     private UserFacade userFacade;
 
