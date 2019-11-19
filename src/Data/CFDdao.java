@@ -24,7 +24,36 @@ public class CFDdao implements DAO<CFD> {
 
     @Override
     public List<CFD> getAll() {
-        return null;
+        List<CFD> cfds = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        try {
+            con = connect();
+            if(con != null) {
+                PreparedStatement pStm1 = con.prepareStatement("select * from CFD");
+                ResultSet rs1 = pStm1.executeQuery();
+
+                while(rs1.next()) {
+                    if(rs1.getString("Position").equals("short")) {
+                        cfds.add(new CFD(rs1.getInt("idCFD"),
+                                rs1.getDouble("TakeProfit"), rs1.getDouble("StopLoss"),
+                                rs1.getDouble("AquisitionPrice"), rs1.getDouble("Quantity"),
+                                LocalDateTime.parse(rs1.getString("Date"), formatter),
+                                Position.SHORT, rs1.getInt("Asset_idAsset")));
+                    } else {
+                        cfds.add(new CFD(rs1.getInt("idCFD"),
+                                rs1.getDouble("TakeProfit"), rs1.getDouble("StopLoss"),
+                                rs1.getDouble("AquisitionPrice"), rs1.getDouble("Quantity"),
+                                LocalDateTime.parse(rs1.getString("Date"), formatter),
+                                Position.LONG, rs1.getInt("Asset_idAsset")));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connect.close(con);
+        }
+        return cfds;
     }
 
     @Override
