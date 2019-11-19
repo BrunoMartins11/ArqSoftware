@@ -1,17 +1,25 @@
 package BusinessModel.Trading;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Portfolio {
 
-	private java.util.Map<Integer, CFD> cfds;
+	private int id;
+	private List<Integer> idCFD;
 
 	public Portfolio() {
-		// TODO - implement Portfolio.Portfolio
-		throw new UnsupportedOperationException();
+		idCFD = new ArrayList<>();
 	}
 
-	public void addCFD(CFD cfd){
+	public Portfolio(int id, List<Integer> cfds) {
+		this.id = id;
+		this.idCFD = cfds;
+	}
+
+	public void addCFD(int id){
 		throw new UnsupportedOperationException();
 	}
 
@@ -19,7 +27,11 @@ public class Portfolio {
 		throw new UnsupportedOperationException();
 	}
 
-	public List<CFD> getAllCFD(){
+	public List<Integer> getAllCFD(){
 		throw new UnsupportedOperationException();
+	}
+
+	public int getId() {
+		return id;
 	}
 }

@@ -9,8 +9,9 @@ public class Admin extends User {
 
 	private String sudopass;
 
-	public Admin(String username, String email, String password) {
-		super(username, email, password);
+	public Admin(int id, String username, String email, String password, String sudopass) {
+		super(id, username, email, password);
+		this.sudopass = sudopass;
 	}
 
 	public boolean loginAdmin(String sudoPass){

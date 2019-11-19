@@ -9,10 +9,16 @@ public class Investor extends User {
 
 	private Double credit;
 	private Portfolio portfolio;
-	private Collection<Asset> watchList;
+	private List<Integer> watchList;
 
-	public Investor(String username, String email, String password) {
-		super(username, email, password);
+	public Investor(int id, String username, String email, String password, Portfolio p, Double credit) {
+		super(id, username, email, password);
+		portfolio = p;
+		this.credit = credit;
+	}
+
+	public Investor() {
+		super();
 	}
 
 	public Double getCredit(){
@@ -61,5 +67,9 @@ public class Investor extends User {
 
 	public Bug reportBug(String text){
 		throw new UnsupportedOperationException();
+	}
+
+	public int getPortfolioId(){
+		return this.portfolio.getId();
 	}
 }

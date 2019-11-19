@@ -29,8 +29,6 @@ public class ESSTrading {
 		throw new UnsupportedOperationException();	}
 
 	public static void main(String[] args) {
-		// TODO - implement ESSTrading.main
-		throw new UnsupportedOperationException();
 	}
 
 }

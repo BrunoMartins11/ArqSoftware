@@ -2,55 +2,100 @@ package BusinessModel.Trading;
 
 import BusinessModel.Assets.*;
 
+import java.time.LocalDateTime;
+
 public class CFD {
 
+
+	private int id;
 	private Double takeProfit;
 	private Double stopLoss;
 	private Double priceAcquisition;
-	private int id;
 	private Double quantity;
-	private java.time.LocalDateTime date;
+	private LocalDateTime date;
 	private Position position;
-	private Asset asset;
+	private int assetID;
+
+
+
+
+	public CFD(int id, Double takeProfit, Double stopLoss, Double priceAcquisition, Double quantity, LocalDateTime date, Position position, int assetID) {
+		this.id = id;
+		this.takeProfit = takeProfit;
+		this.stopLoss = stopLoss;
+		this.priceAcquisition = priceAcquisition;
+		this.quantity = quantity;
+		this.date = date;
+		this.position = position;
+		this.assetID = assetID;
+	}
 
 	public CFD() {
 		// TODO - implement CFD.CFD
 		throw new UnsupportedOperationException();
 	}
 
-	public Asset getAsset() {
-		// TODO - implement CFD.getAsset
-		throw new UnsupportedOperationException();
+	public int getId() {
+		return id;
 	}
 
-	public Double getQuantity() {
-		// TODO - implement CFD.getQuantity
-		throw new UnsupportedOperationException();
+	public Double getPriceAcquisition() {
+		return priceAcquisition;
 	}
 
-	public Position getPosition() {
-		// TODO - implement CFD.getPosition
-		throw new UnsupportedOperationException();
+	public LocalDateTime getDate() {
+		return date;
 	}
 
-	public void setTP() {
-		// TODO - implement CFD.setTP
-		throw new UnsupportedOperationException();
+	public int getAssetID() {
+		return assetID;
 	}
 
-	public void setSL() {
-		// TODO - implement CFD.setSL
-		throw new UnsupportedOperationException();
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Double getTP() {
-		// TODO - implement CFD.getTP
-		throw new UnsupportedOperationException();
+		return takeProfit;
+	}
+
+	public void setTakeProfit(Double takeProfit) {
+		this.takeProfit = takeProfit;
 	}
 
 	public Double getSL() {
-		// TODO - implement CFD.getSL
-		throw new UnsupportedOperationException();
+		return stopLoss;
 	}
 
+	public void setStopLoss(Double stopLoss) {
+		this.stopLoss = stopLoss;
+	}
+
+	public void setPriceAcquisition(Double priceAcquisition) {
+		this.priceAcquisition = priceAcquisition;
+	}
+
+	public Double getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Double quantity) {
+		this.quantity = quantity;
+	}
+
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+	public void setAssetID(int assetID) {
+		this.assetID = assetID;
+	}
 }
