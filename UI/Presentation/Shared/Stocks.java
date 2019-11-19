@@ -1,7 +1,9 @@
+package UI.Presentation.Shared;
 
 
+import BusinessModel.Assets.Asset;
 
-
+import java.util.List;
 import java.util.Scanner;
 
 public class Stocks implements Presentation.Shared.Shared {
@@ -33,7 +35,7 @@ public class Stocks implements Presentation.Shared.Shared {
         return scan.next();
     }
 
-    public void drawSecondMenu(AssetList assets, String type)
+    public void drawSecondMenu(List<Asset> assets, String type)
     {
         StringBuilder builder = new StringBuilder();
         int i = 0;
@@ -44,7 +46,7 @@ public class Stocks implements Presentation.Shared.Shared {
                .append("NR. | Item | Value | State \n");
 
 
-        for(Asset a : assets.getAssets())
+        for(Asset a : assets)
         {
             builder.append(insertItem(a));
         }
@@ -61,11 +63,9 @@ public class Stocks implements Presentation.Shared.Shared {
 
         builder.append(o.getId())
                .append(" | ")
-               .append(o.getName())
+               .append(o.getCompany())
                .append(" | ")
                .append(o.getValue())
-               .append(" | ")
-               .append(o.getState())
                .append("\n");
 
         return builder.toString();

@@ -4,9 +4,9 @@ import Presentation.User.UserFacade;
 
 public class SharedFacade
 {
-    private Registration registration;
-    private StartupMenu startMenu;
-    private Login login;
+    private Presentation.Shared.Registration registration;
+    private Presentation.Shared.StartupMenu startMenu;
+    private Presentation.Shared.Login login;
     private UserFacade userFacade;
 
     public SharedFacade()
@@ -25,7 +25,7 @@ public class SharedFacade
     public boolean openStartUpMenu()
     {
         int option;
-        startMenu.drawMenu();
+        startMenu.drawMainMenu();
         option = startMenu.intInput();
         return processStartUp(option);
     }
@@ -98,7 +98,7 @@ public class SharedFacade
     {
         String emailInput, passwordInput = "";
 
-        registration.drawMenu();
+        registration.drawMainMenu();
         emailInput = registration.stringInput();
         System.out.println("Insira uma Password\n");
         passwordInput = registration.stringInput();
@@ -116,7 +116,7 @@ public class SharedFacade
     public void openLoginMenu()
     {
         String email, password;
-        login.drawMenu();
+        login.drawMainMenu();
         email = login.stringInput();
         System.out.println("Insira a Password\n");
         password = login.stringInput();

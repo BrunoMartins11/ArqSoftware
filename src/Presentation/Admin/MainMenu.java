@@ -1,8 +1,10 @@
 package Presentation.Admin;
 
+import Presentation.MainUser;
+
 import java.util.Scanner;
 
-public class MainMenu implements Admin
+public class MainMenu implements MainUser
 {
 
     @Override

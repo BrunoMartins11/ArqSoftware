@@ -1,21 +1,18 @@
 package Presentation.Shared;
 
+import Presentation.MainUser;
+
 import java.util.Scanner;
 
-public class StartupMenu implements Shared
-{
+public class Registration implements MainUser {
+
     @Override
-    public void drawMenu()
+    public void drawMainMenu()
     {
-        int input;
         Scanner scan = new Scanner(System.in);
         StringBuilder builder = new StringBuilder();
-        builder.append("Menu Iniciar\n")
-                .append("1. Ver Mercados\n")
-                .append("2. Efectuar Login\n")
-                .append("3. Registar\n")
-                .append("4. Sair\n");
 
+        builder.append("Menu Registar\n").append("Insira o Email\n");
         System.out.println(builder);
     }
 

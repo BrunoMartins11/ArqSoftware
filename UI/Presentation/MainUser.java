@@ -1,6 +1,6 @@
-package Presentation.Admin;
+package UI.Presentation;
 
-public interface Admin
+public interface MainUser
 {
     void drawMainMenu();
     int intInput();
