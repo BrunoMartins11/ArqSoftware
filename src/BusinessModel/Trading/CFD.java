@@ -12,7 +12,7 @@ public class CFD {
 	private Double stopLoss;
 	private Double priceAcquisition;
 	private Double quantity;
-	private java.time.LocalDateTime date;
+	private LocalDateTime date;
 	private Position position;
 	private int assetID;
 
@@ -51,39 +51,51 @@ public class CFD {
 		return assetID;
 	}
 
-	public Asset getAsset() {
-		// TODO - implement CFD.getAsset
-		throw new UnsupportedOperationException();
-	}
-
-	public Double getQuantity() {
-		// TODO - implement CFD.getQuantity
-		throw new UnsupportedOperationException();
-	}
-
-	public Position getPosition() {
-		// TODO - implement CFD.getPosition
-		throw new UnsupportedOperationException();
-	}
-
-	public void setTP() {
-		// TODO - implement CFD.setTP
-		throw new UnsupportedOperationException();
-	}
-
-	public void setSL() {
-		// TODO - implement CFD.setSL
-		throw new UnsupportedOperationException();
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Double getTP() {
-		// TODO - implement CFD.getTP
-		throw new UnsupportedOperationException();
+		return takeProfit;
+	}
+
+	public void setTakeProfit(Double takeProfit) {
+		this.takeProfit = takeProfit;
 	}
 
 	public Double getSL() {
-		// TODO - implement CFD.getSL
-		throw new UnsupportedOperationException();
+		return stopLoss;
 	}
 
+	public void setStopLoss(Double stopLoss) {
+		this.stopLoss = stopLoss;
+	}
+
+	public void setPriceAcquisition(Double priceAcquisition) {
+		this.priceAcquisition = priceAcquisition;
+	}
+
+	public Double getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Double quantity) {
+		this.quantity = quantity;
+	}
+
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+	public void setAssetID(int assetID) {
+		this.assetID = assetID;
+	}
 }

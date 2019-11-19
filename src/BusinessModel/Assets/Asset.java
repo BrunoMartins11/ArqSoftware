@@ -3,7 +3,7 @@ package BusinessModel.Assets;
 public class Asset {
 
 
-	int id;
+	private int id;
 	private Double value;
 	private String company;
 	private AssetType type;
