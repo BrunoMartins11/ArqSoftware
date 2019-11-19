@@ -43,7 +43,7 @@ public class Stocks implements MainUser {
         builder.append("Ver Mercados - ")
                .append(type)
                .append("\n")
-               .append("NR. | Item | Value | State \n");
+               .append("NR. | Item | Value \n");
 
 
         for(Asset a : assets)

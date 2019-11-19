@@ -28,7 +28,4 @@ public class ESSTrading {
 	public List<Bug> getBugs() {
 		throw new UnsupportedOperationException();	}
 
-	public static void main(String[] args) {
-	}
-
 }

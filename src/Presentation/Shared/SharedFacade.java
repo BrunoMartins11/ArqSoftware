@@ -1,55 +1,35 @@
 package Presentation.Shared;
 
-import Presentation.User.UserFacade;
+import BusinessModel.ESSTrading;
 
 public class SharedFacade
 {
-    private Presentation.Shared.Registration registration;
-    private Presentation.Shared.StartupMenu startMenu;
-    private Presentation.Shared.Login login;
-    private UserFacade userFacade;
+    private Registration registration;
+    private StartupMenu startMenu;
+    private Login login;
+    private Stocks stocks;
+    private ESSTrading essTrading;
 
     public SharedFacade()
     {
         registration = new Registration();
         startMenu = new StartupMenu();
+        stocks = new Stocks();
         login = new Login();
     }
 
-    public void setUserFacade(UserFacade user)
+    public void setEssTrading(ESSTrading ess)
     {
-        this.userFacade = user;
+        essTrading = ess;
     }
 
     // START UP MENU - opens start up menu
-    public boolean openStartUpMenu()
+    public int openStartUpMenu()
     {
         int option;
         startMenu.drawMainMenu();
         option = startMenu.intInput();
-        return processStartUp(option);
-    }
-    // START UP MENU - manages user input
-    private boolean processStartUp(int option)
-    {
-        boolean ret = false;
-        switch (option)
-        {
-            case 1:
-                openStocksMenu();
-                break;
-            case 2:
-                openLoginMenu();
-                ret = true;
-                break;
-            case 3:
-                openRegistrationMenu();
-                break;
-            default:
-                break;
-        }
-
-        return ret;
+        return option;
     }
 
     // STOCK MENU
@@ -58,7 +38,7 @@ public class SharedFacade
         //AssetList assetList = new AssetList();
         int stockType = 0;
         String stock = "";
-        //stocks.drawMenu();
+        stocks.drawMainMenu();
         //stockType = stocks.input();
 
         switch (stockType)
@@ -93,54 +73,23 @@ public class SharedFacade
         //    openStocksMenu();
     }
 
-    // REGISTRATION MENU - opens registration menu
-    public void openRegistrationMenu()
-    {
-        String emailInput, passwordInput = "";
-
-        registration.drawMainMenu();
-        emailInput = registration.stringInput();
-        System.out.println("Insira uma Password\n");
-        passwordInput = registration.stringInput();
-
-        saveNewUser(emailInput,passwordInput);
-    }
-
-    private void saveNewUser(String emailInput, String passwordInput)
-    {
-        //TODO CALL BUSINESS
-        System.out.println("Registado com Sucesso!");
-    }
 
     // LOGIN MENU - opens login menu
     public void openLoginMenu()
     {
-        String email, password;
         login.drawMainMenu();
-        email = login.stringInput();
-        System.out.println("Insira a Password\n");
-        password = login.stringInput();
-
-        if(authentication(email,password))
-        {
-            System.out.println("Login Efetuado");
-            userFacade.openStartUpMenu();
-        }
-        else // authentication failed
-        {
-            System.out.println("Email ou Password Errados\n");
-            openStartUpMenu();
-        }
     }
 
-    public boolean authentication(String email, String password)
+    public void openRegistrationMenu()
     {
-        if(true)//this.users.authentication(email,password))
-        {
-            userFacade.setAuthentication(true);
-            return true;
-        }
-        else
-            return false;
+        registration.drawMainMenu();
+    }
+
+    public String getEmailInput() {
+        return login.stringInput();
+    }
+
+    public String getPasswordInput() {
+        return login.stringInput();
     }
 }

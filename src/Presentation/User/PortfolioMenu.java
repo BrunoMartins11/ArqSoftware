@@ -46,11 +46,11 @@ public class PortfolioMenu implements MainUser {
                 .append(" | ")
                 .append(o.getType())
                 .append(" | ")
-                .append(o.getPosition())
-                .append(" | ")
-                .append(o.getBuyValue()).append("/").append(o.getCurrentValue()).append("/").append(o.getGain())
-                .append(" | ")
-                .append(o.getState())
+                //.append(o.getPosition())
+                //.append(" | ")
+                //.append(o.getBuyValue()).append("/").append(o.getCurrentValue()).append("/").append(o.getGain())
+                //.append(" | ")
+                //.append(o.getState())
                 .append("\n");
 
         return builder.toString();

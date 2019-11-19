@@ -1,4 +1,5 @@
 package Presentation.User;
+import BusinessModel.ESSTrading;
 import Presentation.Shared.SharedFacade;
 
 public class UserFacade
@@ -14,6 +15,7 @@ public class UserFacade
     private PortfolioMenu portfolioMenu;
     private WatchListMenu watchListMenu;
     private PositionManage positionManage;
+    private ESSTrading essTrading;
     private boolean authenticated;
 
     public UserFacade(SharedFacade shared)
@@ -30,6 +32,11 @@ public class UserFacade
         this.withdrawCredit = new WithdrawCredit();
         this.positionManage = new PositionManage();
         this.authenticated = false;
+    }
+
+    public void setEssTrading(ESSTrading ess)
+    {
+        this.essTrading = ess;
     }
 
     public void openStartUpMenu()
@@ -92,7 +99,7 @@ public class UserFacade
     private void openPortfolioMenu()
     {
         portfolioMenu.drawMainMenu();
-        //portfolioMenu.drawSecondMenu(this.portfolio.getAssets());
+        //portfolioMenu.drawSecondMenu();
         int input = portfolioMenu.intInput();
         processPortfolioInput(input);
     }
