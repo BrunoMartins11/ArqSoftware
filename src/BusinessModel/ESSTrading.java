@@ -43,17 +43,20 @@ public class ESSTrading {
 		bugs = (new BugDAO()).getAll();
 	}
 
-	public Map<String, User> getUsers() {
-		throw new UnsupportedOperationException();
+	public Map<Integer, User> getUsers() {
+		return this.users;
 	}
 
-	public Map<String, Asset> getAssets() {
-		throw new UnsupportedOperationException();	}
+	public Map<Integer, Asset> getAssets() {
+		return  this.assets;
+	}
 
 	public Map<Integer, CFD> getCfds() {
-		throw new UnsupportedOperationException();	}
+		return  this.cfds;
+	}
 
 	public List<Bug> getBugs() {
-		throw new UnsupportedOperationException();	}
+		return this.bugs;
+	}
 
 }
