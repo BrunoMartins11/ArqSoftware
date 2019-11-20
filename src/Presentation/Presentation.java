@@ -55,8 +55,8 @@ public class Presentation {
         if (authentication(email, password)) {
             if (true) // IS USER
             {
-                userFacade.openStartUpMenu();
                 userFacade.setAuthentication(true);
+                userFacade.openStartUpMenu();
                 userFacade.openStartUpMenu();
             } else // IS ADMIN
             {
@@ -96,7 +96,7 @@ public class Presentation {
 
 
     private boolean authentication(String email, String password) {
-        return true;//essTrading.loginUser(email, password);
+        return essTrading.loginUser(email, password);
     }
 
 
