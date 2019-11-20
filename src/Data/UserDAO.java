@@ -71,7 +71,7 @@ public class UserDAO implements DAO<User> {
         try {
             con = connect();
             if(con != null) {
-                PreparedStatement pStm = con.prepareStatement("insert into User values (?,?,?,?,?,?,?) ");
+                PreparedStatement pStm = con.prepareStatement("insert into User(idUser, Username, Email, Password, isAdmin, Credit, Portfolio_idPortfolio) values (?,?,?,?,?,?,?) ");
                 pStm.setInt(1, user.getId());
                 pStm.setString(2, user.getUsername());
                 pStm.setString(3, user.getEmail());
@@ -89,7 +89,7 @@ public class UserDAO implements DAO<User> {
                         pStm.setInt(7, 0);
                     }
                 }
-                ResultSet rs = pStm.executeQuery();
+                pStm.execute();
             }
         } catch (SQLException e) {
             e.printStackTrace();

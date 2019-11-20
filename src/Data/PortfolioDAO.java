@@ -25,8 +25,8 @@ public class PortfolioDAO implements DAO<Portfolio> {
                 if (rs.next()) {
                     List<Integer> idCFDs = new ArrayList<>();
                     PreparedStatement pStm2 = con.prepareStatement("select * from Portfolio_has_Asset where Portfolio_idPortfolio=?");
-                    pStm.setInt(1, id);
-                    ResultSet rs2 = pStm.executeQuery();
+                    pStm2.setInt(1, id);
+                    ResultSet rs2 = pStm2.executeQuery();
                     while(rs2.next()){
                         idCFDs.add(rs2.getInt("Asset_idAsset"));
                     }
@@ -53,7 +53,7 @@ public class PortfolioDAO implements DAO<Portfolio> {
                     List<Integer> idCFDs = new ArrayList<>();
                     PreparedStatement pStm2 = con.prepareStatement("select * from Portfolio_has_Asset where Portfolio_idPortfolio=?");
                     pStm2.setInt(1, rs.getInt("idPortfolio"));
-                    ResultSet rs2 = pStm.executeQuery();
+                    ResultSet rs2 = pStm2.executeQuery();
                     while(rs2.next()){
                         idCFDs.add(rs2.getInt("Asset_idAsset"));
                     }
@@ -70,7 +70,18 @@ public class PortfolioDAO implements DAO<Portfolio> {
 
     @Override
     public void save(Portfolio portfolio) {
-
+        try {
+            con = connect();
+            if(con != null) {
+                PreparedStatement pStm = con.prepareStatement("insert into Portfolio values (?)");
+                pStm.setInt(1, portfolio.getId());
+                pStm.execute();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connect.close(con);
+        }
     }
 
     @Override

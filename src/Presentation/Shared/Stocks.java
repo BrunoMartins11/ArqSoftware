@@ -51,8 +51,7 @@ public class Stocks implements MainUser {
             builder.append(insertItem(a));
         }
 
-        builder.append("------------------------------------------------\n")
-               .append("1. Regressar\n");
+        builder.append("------------------------------------------------\n");
 
         System.out.println(builder);
     }

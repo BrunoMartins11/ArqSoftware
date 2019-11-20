@@ -1,6 +1,10 @@
 package Presentation.Shared;
 
+import BusinessModel.Assets.Asset;
 import BusinessModel.ESSTrading;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SharedFacade
 {
@@ -35,31 +39,33 @@ public class SharedFacade
     // STOCK MENU
     public void openStocksMenu()
     {
-        //AssetList assetList = new AssetList();
-        int stockType = 0;
+        List<Asset> assets = new ArrayList<>(essTrading.getAssets().values());
         String stock = "";
         stocks.drawMainMenu();
-        //stockType = stocks.input();
+        int stockType = stocks.intInput();
 
         switch (stockType)
         {
             case 1:
-                //assetList.assetGenerator_Commodities();
                 stock = "Commodities";
+                stocks.drawSecondMenu(assets, stock);
+                openStartUpMenu();
                 break;
             case 2:
-                //assetList.assetGenerator_Coin();
                 stock = "Coin";
+                stocks.drawSecondMenu(assets, stock);
+                openStartUpMenu();
                 break;
             case 3:
-                //assetList.assetGenerator_Stocks();
                 stock = "Stocks";
+                stocks.drawSecondMenu(assets, stock);
+                openStartUpMenu();
                 break;
             default:
                 openStartUpMenu();
         }
         if(stockType != 4)
-            System.out.println("TODO");
+            startMenu.drawMainMenu();
             //openSecondStockMenu(assetList,stock);
     }
 

@@ -55,8 +55,8 @@ public class Presentation {
         if (authentication(email, password)) {
             if (true) // IS USER
             {
-                userFacade.openStartUpMenu();
                 userFacade.setAuthentication(true);
+                userFacade.openStartUpMenu();
                 userFacade.openStartUpMenu();
             } else // IS ADMIN
             {
@@ -85,8 +85,7 @@ public class Presentation {
     }
 
     private void saveNewUser(String emailInput, String passwordInput) {
-        //TODO CALL BUSINESS
-        if (true)//essTrading.saveNewUser(emailInput,passwordInput))
+        if (essTrading.saveNewUser(emailInput,passwordInput))
         {
             System.out.println("Registado com Sucesso!\n");
         } else {
@@ -97,8 +96,7 @@ public class Presentation {
 
 
     private boolean authentication(String email, String password) {
-        //TODO
-        return true;
+        return essTrading.loginUser(email, password);
     }
 
 
