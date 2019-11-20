@@ -4,7 +4,11 @@ import BusinessModel.Report.Bug;
 import BusinessModel.User.*;
 import BusinessModel.Assets.*;
 import BusinessModel.Trading.*;
-import Data.*;
+
+import Data.AssetDAO;
+import Data.BugDAO;
+import Data.CFDdao;
+import Data.UserDAO;
 
 import java.util.HashMap;
 import java.util.List;
