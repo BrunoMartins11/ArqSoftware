@@ -20,8 +20,7 @@ public class Asset {
 	}
 
 	public Double getValue() {
-		// TODO - implement Asset.getValue
-		throw new UnsupportedOperationException();
+		return value;
 	}
 
 	public String getCompany() {
@@ -29,8 +28,7 @@ public class Asset {
 	}
 
 	public AssetType getType() {
-		// TODO - implement Asset.getType
-		throw new UnsupportedOperationException();
+		return type;
 	}
 
 }

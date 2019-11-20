@@ -73,7 +73,6 @@ public class ESSTrading {
 		Portfolio p = new Portfolio();
 		User u = new Investor(users.size()+1, email, email, password, p, credit);
 		users.put(users.size()+1, u);
-		//ToDo Fix this shit
 		UserDAO dao = new UserDAO();
 		dao.save(u);
 		return true;
