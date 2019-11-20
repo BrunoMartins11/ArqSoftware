@@ -49,14 +49,17 @@ public class SharedFacade
             case 1:
                 stock = "Commodities";
                 stocks.drawSecondMenu(assets, stock);
+                openStartUpMenu();
                 break;
             case 2:
                 stock = "Coin";
                 stocks.drawSecondMenu(assets, stock);
+                openStartUpMenu();
                 break;
             case 3:
                 stock = "Stocks";
                 stocks.drawSecondMenu(assets, stock);
+                openStartUpMenu();
                 break;
             default:
                 openStartUpMenu();
