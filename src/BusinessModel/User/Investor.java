@@ -22,7 +22,7 @@ public class Investor extends User {
 	}
 
 	public Double getCredit(){
-		throw new UnsupportedOperationException();
+		return credit;
 	}
 
 	public List<Asset> getWatchList() {

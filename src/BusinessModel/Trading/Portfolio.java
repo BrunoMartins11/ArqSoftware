@@ -1,5 +1,7 @@
 package BusinessModel.Trading;
 
+import Data.PortfolioDAO;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +13,9 @@ public class Portfolio {
 	private List<Integer> idCFD;
 
 	public Portfolio() {
+		id = (new PortfolioDAO()).getAll().size()+1;
 		idCFD = new ArrayList<>();
+		(new PortfolioDAO()).save(this);
 	}
 
 	public Portfolio(int id, List<Integer> cfds) {

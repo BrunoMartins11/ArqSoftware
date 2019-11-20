@@ -85,8 +85,7 @@ public class Presentation {
     }
 
     private void saveNewUser(String emailInput, String passwordInput) {
-        //TODO CALL BUSINESS
-        if (true)//essTrading.saveNewUser(emailInput,passwordInput))
+        if (essTrading.saveNewUser(emailInput,passwordInput))
         {
             System.out.println("Registado com Sucesso!\n");
         } else {
@@ -97,8 +96,7 @@ public class Presentation {
 
 
     private boolean authentication(String email, String password) {
-        //TODO
-        return true;
+        return true;//essTrading.loginUser(email, password);
     }
 
 

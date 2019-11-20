@@ -4,10 +4,7 @@ import BusinessModel.Report.Bug;
 import BusinessModel.User.*;
 import BusinessModel.Assets.*;
 import BusinessModel.Trading.*;
-import Data.AssetDAO;
-import Data.BugDAO;
-import Data.CFDdao;
-import Data.UserDAO;
+import Data.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,4 +56,22 @@ public class ESSTrading {
 		return this.bugs;
 	}
 
+	public boolean loginUser(String email, String password){
+		for (User u: users.values()) {
+			if(u.getEmail().equals(email) && u.getPassword().equals(password))
+				return true;
+		}
+		return  false;
+	}
+
+	public boolean saveNewUser(String email, String password){
+		double credit = 0;
+		Portfolio p = new Portfolio();
+		User u = new Investor(users.size()+1, email, email, password, p, credit);
+		users.put(users.size()+1, u);
+		//ToDo Fix this shit
+		UserDAO dao = new UserDAO();
+		dao.save(u);
+		return true;
+	}
 }

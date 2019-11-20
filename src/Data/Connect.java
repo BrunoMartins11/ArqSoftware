@@ -12,7 +12,7 @@ public class Connect {
     public static Connection connect() {
         try {
             // opening database connection to MySQL server
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(url, user, password);
 
         } catch (SQLException | ClassNotFoundException sqlEx) {
