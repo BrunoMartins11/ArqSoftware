@@ -3,6 +3,7 @@ package Presentation.User;
 import BusinessModel.Assets.Asset;
 import Presentation.MainUser;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -42,7 +43,7 @@ public class StocksMenu implements MainUser
         System.out.println(builder);
     }
 
-    public void drawSecondMenu(List<Asset> assets, String type)
+    public void drawSecondMenu(Collection<Asset> assets, String type)
     {
         StringBuilder builder = new StringBuilder();
 

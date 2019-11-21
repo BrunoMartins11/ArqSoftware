@@ -13,6 +13,8 @@ import Data.UserDAO;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class ESSTrading {
 
@@ -44,18 +46,37 @@ public class ESSTrading {
 		bugs = (new BugDAO()).getAll();
 	}
 
+	// GETS USERS
 	public Map<Integer, User> getUsers() {
 		return this.users;
 	}
 
+	// GETS ASSETS
 	public Map<Integer, Asset> getAssets() {
 		return  this.assets;
 	}
 
+	public Map<Integer,Asset> getAssetsByType(String type)
+	{
+		Map<Integer,Asset> ret = new HashMap<>();
+
+		for(Asset a : assets.values())
+		{
+			if(a.getType().equals(AssetType.valueOf(type)))
+			{
+				ret.put(a.getId(),a);
+			}
+		}
+
+		return ret;
+	}
+
+	// GETS CFD'S
 	public Map<Integer, CFD> getCfds() {
 		return  this.cfds;
 	}
 
+	// GETS BUG'S
 	public List<Bug> getBugs() {
 		return this.bugs;
 	}

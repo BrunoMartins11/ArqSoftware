@@ -1,6 +1,11 @@
 package Presentation.User;
+import BusinessModel.Assets.Asset;
 import BusinessModel.ESSTrading;
 import Presentation.Shared.SharedFacade;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class UserFacade
 {
@@ -204,28 +209,29 @@ public class UserFacade
     private void processMarketInput(int input)
     {
         String type = "";
+        Collection<Asset> assets = new ArrayList<>();
         switch(input)
         {
             case 1:
-                //this.assets.assetGenerator_Commodities();
-                type = "Commodities";
+                type = "COMMODITY";
+                assets = essTrading.getAssetsByType(type).values();
                 break;
             case 2:
-                type = "Coin";
-                //this.assets.assetGenerator_Coin();
+                type = "COIN";
+                assets = essTrading.getAssetsByType(type).values();
                 break;
             case 3:
-                type = "Stocks";
-                //this.assets.assetGenerator_Stocks();
+                type = "STOCK";
+                assets = essTrading.getAssetsByType(type).values();
                 break;
         }
-        //openSecondStockMenu(this.assets, type);
+        openSecondStockMenu(assets, type);
     }
 
-    public void openSecondStockMenu(Object assetList, String stock)
+    public void openSecondStockMenu(Collection<Asset> assetList, String stock)
     {
         int input;
-        //this.stocksMenu.drawSecondMenu(assetList, stock);
+        this.stocksMenu.drawSecondMenu(assetList, stock);
         input = this.stocksMenu.intInput();
         if(input == 1)
         {

@@ -5,6 +5,7 @@ import BusinessModel.ESSTrading;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SharedFacade
 {
@@ -47,17 +48,17 @@ public class SharedFacade
         switch (stockType)
         {
             case 1:
-                stock = "Commodities";
+                stock = "COMMODITY";
                 stocks.drawSecondMenu(assets, stock);
                 openStartUpMenu();
                 break;
             case 2:
-                stock = "Coin";
+                stock = "COIN";
                 stocks.drawSecondMenu(assets, stock);
                 openStartUpMenu();
                 break;
             case 3:
-                stock = "Stocks";
+                stock = "STOCK";
                 stocks.drawSecondMenu(assets, stock);
                 openStartUpMenu();
                 break;
@@ -65,18 +66,7 @@ public class SharedFacade
                 openStartUpMenu();
         }
         if(stockType != 4)
-            startMenu.drawMainMenu();
-            //openSecondStockMenu(assetList,stock);
-    }
-
-    public void openSecondStockMenu(Object assetList, String stock)
-    {
-        int input;
-        //stocks.drawSecondMenu(assetList,stock);
-        //input = stocks.input();
-
-        //if(input != 0)
-        //    openStocksMenu();
+            openStartUpMenu();
     }
 
 
