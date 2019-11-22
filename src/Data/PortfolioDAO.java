@@ -23,14 +23,21 @@ public class PortfolioDAO implements DAO<Portfolio> {
                 pStm.setInt(1, id);
                 ResultSet rs = pStm.executeQuery();
                 if (rs.next()) {
-                    List<Integer> idCFDs = new ArrayList<>();
+                    List<Integer> watchList = new ArrayList<>();
                     PreparedStatement pStm2 = con.prepareStatement("select * from Portfolio_has_Asset where Portfolio_idPortfolio=?");
                     pStm2.setInt(1, id);
                     ResultSet rs2 = pStm2.executeQuery();
                     while(rs2.next()){
-                        idCFDs.add(rs2.getInt("Asset_idAsset"));
+                        watchList.add(rs2.getInt("Asset_idAsset"));
                     }
-                    return new Portfolio(rs.getInt("idPortfolio"), idCFDs);
+                    List<Integer> cfds = new ArrayList<>();
+                    PreparedStatement pStm3 = con.prepareStatement("select * from CFD where Portfolio_idPortfolio=?");
+                    pStm3.setInt(1, id);
+                    ResultSet rs3 = pStm3.executeQuery();
+                    while(rs3.next()){
+                        cfds.add(rs3.getInt("idCFD"));
+                    }
+                    return new Portfolio(rs.getInt("idPortfolio"), cfds,watchList);
                 }
             }
         } catch (SQLException e) {
@@ -50,14 +57,21 @@ public class PortfolioDAO implements DAO<Portfolio> {
                 PreparedStatement pStm = con.prepareStatement("select * from Portfolio");
                 ResultSet rs = pStm.executeQuery();
                 while(rs.next()) {
-                    List<Integer> idCFDs = new ArrayList<>();
+                    List<Integer> watchList = new ArrayList<>();
                     PreparedStatement pStm2 = con.prepareStatement("select * from Portfolio_has_Asset where Portfolio_idPortfolio=?");
                     pStm2.setInt(1, rs.getInt("idPortfolio"));
                     ResultSet rs2 = pStm2.executeQuery();
                     while(rs2.next()){
-                        idCFDs.add(rs2.getInt("Asset_idAsset"));
+                        watchList.add(rs2.getInt("Asset_idAsset"));
                     }
-                    port.add(new Portfolio(rs.getInt("idPortfolio"), idCFDs));
+                    List<Integer> cfds = new ArrayList<>();
+                    PreparedStatement pStm3 = con.prepareStatement("select * from CFD where Portfolio_idPortfolio=?");
+                    pStm3.setInt(1, rs.getInt("idPortfolio"));
+                    ResultSet rs3 = pStm3.executeQuery();
+                    while(rs3.next()){
+                        cfds.add(rs3.getInt("idCFD"));
+                    }
+                    port.add(new Portfolio(rs.getInt("idPortfolio"), cfds,watchList));
                 }
             }
         } catch (SQLException e) {

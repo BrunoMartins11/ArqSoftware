@@ -10,29 +10,41 @@ import java.util.Map;
 public class Portfolio {
 
 	private int id;
-	private List<Integer> idCFD;
+	private List<Integer> CFDs;
+	private List<Integer> watchList;
+
 
 	public Portfolio() {
 		id = (new PortfolioDAO()).getAll().size()+1;
-		idCFD = new ArrayList<>();
+		CFDs = new ArrayList<>();
 		(new PortfolioDAO()).save(this);
 	}
 
-	public Portfolio(int id, List<Integer> cfds) {
+	public Portfolio(int id, List<Integer> cfds, List<Integer> watchList) {
 		this.id = id;
-		this.idCFD = cfds;
+		this.CFDs = cfds;
+		this.watchList = watchList;
 	}
 
 	public void addCFD(int id){
-		throw new UnsupportedOperationException();
+		CFDs.add(id);
 	}
 
 	public void removeCFD(int id){
-		throw new UnsupportedOperationException();
+		for (Integer i: CFDs) {
+			if(i == id){
+				CFDs.remove(id);
+				break;
+			}
+		}
 	}
 
-	public List<Integer> getAllCFD(){
-		throw new UnsupportedOperationException();
+	public List<Integer> getCFDs() {
+		return CFDs;
+	}
+
+	public List<Integer> getWatchList() {
+		return watchList;
 	}
 
 	public int getId() {
