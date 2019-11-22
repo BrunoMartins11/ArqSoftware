@@ -49,7 +49,7 @@ public class BugDAO implements DAO<Bug> {
                 pStm.setString(2, bug.getError());
                 pStm.setString(3, bug.getDate().toString());
                 pStm.setInt(4, bug.getIdClient());
-                ResultSet rs = pStm.executeQuery();
+                pStm.execute();
             }
         } catch (SQLException e) {
             e.printStackTrace();

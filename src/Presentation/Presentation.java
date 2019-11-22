@@ -1,6 +1,8 @@
 package Presentation;
 
 import BusinessModel.ESSTrading;
+import BusinessModel.User.Investor;
+import BusinessModel.User.User;
 import Presentation.Admin.AdminFacade;
 import Presentation.Shared.SharedFacade;
 import Presentation.User.UserFacade;
@@ -52,17 +54,16 @@ public class Presentation {
 
         System.out.println("Insira a Password\n");
         password = sharedFacade.getPasswordInput();
-        if (authentication(email, password)) {
-            if (true) // IS USER
+        User u;
+        if ((u = authentication(email, password)) != null) {
+            if (u instanceof Investor) // IS USER
             {
                 userFacade.setAuthentication(true);
                 userFacade.openStartUpMenu();
-                userFacade.openStartUpMenu();
             } else // IS ADMIN
             {
-                adminFacade.openStartUpMenu();
                 adminFacade.setAuthentication(true);
-                adminFacade.openStartUpMenu();
+                adminFacade.openMainMenu();
             }
 
         } else // authentication failed
@@ -95,7 +96,7 @@ public class Presentation {
     }
 
 
-    private boolean authentication(String email, String password) {
+    private User authentication(String email, String password) {
         return essTrading.loginUser(email, password);
     }
 
