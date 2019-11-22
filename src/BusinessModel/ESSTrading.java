@@ -10,6 +10,8 @@ import Data.BugDAO;
 import Data.CFDdao;
 import Data.UserDAO;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,5 +122,18 @@ public class ESSTrading {
 		//TODO Calcular o que ganhou/perdeu
 		(new CFDdao()).delete(cfd);
 		cfds.remove(cfd.getId());
+	}
+
+	public List<Asset> getInvestorWatchList(int id){
+		Investor investor = (Investor) users.get(id);
+		List<Asset> watchList = new ArrayList<>();
+		for (Integer i: investor.getPortfolio().getWatchList()) {
+			watchList.add(assets.get(i));
+		}
+		return watchList;
+	}
+
+	public void reportBug(int idUser, String text){
+		bugs.add((new Bug(bugs.size()+1, text, LocalDateTime.now(), idUser)));
 	}
 }

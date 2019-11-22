@@ -1,5 +1,7 @@
 package BusinessModel.Report;
 
+import Data.BugDAO;
+
 import java.time.LocalDateTime;
 
 public class Bug {
@@ -9,6 +11,20 @@ public class Bug {
 	private int idClient;
 	private LocalDateTime date;
 
+	public Bug(int id, String error, LocalDateTime date, int idClient) {
+		this.id = id;
+		this.error = error;
+		this.idClient = idClient;
+		this.date = date;
+		(new BugDAO()).save(this);
+	}
+
+	public Bug() {
+	}
+
+	public String getError() {
+		return error;
+	}
 	public int getIdClient() {
 		return idClient;
 	}
@@ -20,22 +36,4 @@ public class Bug {
 	public int getId() {
 		return id;
 	}
-
-	public Bug(int id, String error, LocalDateTime date, int idClient) {
-		this.id = id;
-		this.error = error;
-		this.idClient = idClient;
-		this.date = date;
-	}
-
-	public Bug() {
-		// TODO - implement Bug.Bug
-		throw new UnsupportedOperationException();
-	}
-
-	public String getError() {
-		// TODO - implement Bug.get
-		throw new UnsupportedOperationException();
-	}
-
 }
