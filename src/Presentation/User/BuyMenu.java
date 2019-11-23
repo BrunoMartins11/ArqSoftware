@@ -31,6 +31,12 @@ public class BuyMenu implements MainUser
         return scan.next();
     }
 
+    public double doubleInput()
+    {
+        Scanner scan = new Scanner(System.in);
+        return scan.nextDouble();
+    }
+
     public void drawPositionType()
     {
         StringBuilder builder = new StringBuilder();

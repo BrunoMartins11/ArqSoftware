@@ -40,6 +40,12 @@ public class MainMenu implements MainUser
     }
 
     @Override
+    public double doubleInput() {
+        Scanner scan = new Scanner(System.in);
+        return scan.nextDouble();
+    }
+
+    @Override
     public String stringInput()
     {
         Scanner scan = new Scanner(System.in);

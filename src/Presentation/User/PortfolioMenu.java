@@ -1,6 +1,7 @@
 package Presentation.User;
 
 import BusinessModel.Assets.Asset;
+import BusinessModel.Trading.CFD;
 import Presentation.MainUser;
 
 import java.util.List;
@@ -13,14 +14,14 @@ public class PortfolioMenu implements MainUser {
         System.out.println("Menu Ver Portfólio\n");
     }
 
-    public void drawSecondMenu(List<Asset> assets)
+    public void drawSecondMenu(List<CFD> cfds)
     {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("NR. | Item | Type | Position | Buy Value/Current/Gain | State \n");
+        builder.append("NR. | AssetID | Date | Position | Buy Value | Quantity | TP Value | SL Value\n");
 
 
-        for(Asset a : assets)
+        for(CFD a : cfds)
         {
             builder.append(insertItem(a));
         }
@@ -36,21 +37,25 @@ public class PortfolioMenu implements MainUser {
 
     }
 
-    private String insertItem(Asset o)
+    private String insertItem(CFD o)
     {
         StringBuilder builder = new StringBuilder();
 
         builder.append(o.getId())
                 .append(" | ")
-                .append(o.getCompany())
+                .append(o.getAssetID())
                 .append(" | ")
-                .append(o.getType())
+                .append(o.getDate().toLocalTime().toString())
                 .append(" | ")
-                //.append(o.getPosition())
-                //.append(" | ")
-                //.append(o.getBuyValue()).append("/").append(o.getCurrentValue()).append("/").append(o.getGain())
-                //.append(" | ")
-                //.append(o.getState())
+                .append(o.getPosition().toString())
+                .append(" | ")
+                .append(o.getPriceAcquisition())
+                .append(" / ")
+                .append(o.getQuantity())
+                .append(" | ")
+                .append(o.getTP())
+                .append(" | ")
+                .append(o.getSL())
                 .append("\n");
 
         return builder.toString();
@@ -61,6 +66,12 @@ public class PortfolioMenu implements MainUser {
     {
         Scanner scan = new Scanner(System.in);
         return scan.nextInt();
+    }
+
+    @Override
+    public double doubleInput() {
+        Scanner scan = new Scanner(System.in);
+        return scan.nextDouble();
     }
 
     @Override

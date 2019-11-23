@@ -22,9 +22,20 @@ public class WatchListMenu implements MainUser {
     }
 
     @Override
+    public double doubleInput() {
+        Scanner scan = new Scanner(System.in);
+        return scan.nextDouble();
+    }
+
+    @Override
     public String stringInput()
     {
         Scanner scan = new Scanner(System.in);
         return scan.next();
+    }
+
+    public void drawRemoveItemMenu()
+    {
+        System.out.println("Insira o ID do item a remover da WatchList:\n");
     }
 }

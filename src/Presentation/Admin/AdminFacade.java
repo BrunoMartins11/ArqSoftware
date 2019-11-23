@@ -12,6 +12,7 @@ public class AdminFacade
     private boolean authenticated;
     private ESSTrading essTrading;
     private MainMenu mainMenu;
+    private int userID;
 
     public AdminFacade(SharedFacade sharedFacade)
     {
@@ -27,7 +28,7 @@ public class AdminFacade
     {
         mainMenu = new MainMenu();
         mainMenu.drawMainMenu();
-        setAuthentication(true);
+
         int scanned = mainMenu.intInput();
         if(scanned == 1){
             sharedFacade.openStocksMenu();
@@ -41,7 +42,9 @@ public class AdminFacade
         mainMenu.drawMainMenu();
     }
 
-    public void setAuthentication(boolean b) {
+    public void setAuthentication(boolean b, int userID)
+    {
         this.authenticated = b;
+        this.userID = userID;
     }
 }

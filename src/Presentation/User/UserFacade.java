@@ -22,6 +22,7 @@ public class UserFacade
     private PositionManage positionManage;
     private ESSTrading essTrading;
     private boolean authenticated;
+    private int userID;
 
     public UserFacade(SharedFacade shared)
     {
@@ -37,6 +38,7 @@ public class UserFacade
         this.withdrawCredit = new WithdrawCredit();
         this.positionManage = new PositionManage();
         this.authenticated = false;
+        this.userID = -1;
     }
 
     public void setEssTrading(ESSTrading ess)
@@ -104,7 +106,7 @@ public class UserFacade
     private void openPortfolioMenu()
     {
         portfolioMenu.drawMainMenu();
-        //portfolioMenu.drawSecondMenu();
+        portfolioMenu.drawSecondMenu(essTrading.getPortfolio(userID));
         int input = portfolioMenu.intInput();
         processPortfolioInput(input);
     }
@@ -129,18 +131,19 @@ public class UserFacade
                 openStartUpMenu();
                 break;
         }
-
     }
 
     private void openCreditMenu()
     {
-        System.out.println("Crédito: \n");
+        double credit = essTrading.getUserCredit(userID);
+        System.out.println("Crédito: " + credit + "\n");
         openPortfolioMenu();
     }
 
     private void openTotalInvested()
     {
-        System.out.println("Total Invested: \n");
+        double invested = essTrading.getTotalInvestedByUser(userID);
+        System.out.println("Total Invested: "+invested + " \n");
         openPortfolioMenu();
     }
 
@@ -169,7 +172,8 @@ public class UserFacade
 
     private void openWatchListMenu()
     {
-        //stocksMenu.drawWatchListMenu(this.assets);
+        Collection<Asset> assets = new ArrayList<>();
+        stocksMenu.drawWatchListMenu(essTrading.getInvestorWatchList(userID));
         int input = stocksMenu.intInput();
         processWatchListInput(input);
     }
@@ -182,12 +186,21 @@ public class UserFacade
                 openBuyMenu();
                 break;
             case 2:
-                //removeItemWatchList();
+                removeItemWatchList();
                 break;
             case 3:
                 openPortfolioMenu();
                 break;
         }
+    }
+
+    private void removeItemWatchList()
+    {
+        watchListMenu.drawRemoveItemMenu();
+        int option = watchListMenu.intInput();
+        // TODO ESS LOGIC
+        essTrading.removeItemFromWatchList(userID,option);
+        openWatchListMenu();
     }
 
     public void openStocksMenu()
@@ -224,6 +237,8 @@ public class UserFacade
                 type = "STOCK";
                 assets = essTrading.getAssetsByType(type).values();
                 break;
+            case 4:
+                openStartUpMenu();
         }
         openSecondStockMenu(assets, type);
     }
@@ -255,12 +270,14 @@ public class UserFacade
         processBuyInput(itemNumber,positionType);
     }
 
-    public void processBuyInput(int itemNumber, int positionType)
+    //positionType : 1 - compra; 2 - venda
+    public void processBuyInput(int assetID, int positionType)
     {
+        double tp = 0;
+        double sl = 0;
         System.out.println("Indique o número de ativos a adquirir\n");
-        int number = buyMenu.intInput();
-        // open position with item number, position type, number of actives
-        boolean userhasMoney = true; //TODO LOGIC STUFF
+        int numberOfAssets = buyMenu.intInput();
+        boolean userhasMoney = essTrading.checkUserCredit(userID, assetID, numberOfAssets);
         if(userhasMoney)
         {
             buyMenu.drawSLTPValues();
@@ -268,14 +285,11 @@ public class UserFacade
             if(option.equals("Y") || option.equals("y"))
             {
                 buyMenu.tpValueDraw();
-                String tp = buyMenu.stringInput();
+                tp = buyMenu.doubleInput();
                 buyMenu.slValueDraw();
-                String sl = buyMenu.stringInput();
+                sl = buyMenu.doubleInput();
             }
-            if(true) // TODO INSERT CHECK CONDITION
-            {
-                buyMenu.printSuccessfulOperation();
-            }
+            essTrading.createCFD(userID,positionType, assetID,numberOfAssets,tp,sl);
         }
         else
         {
@@ -286,7 +300,9 @@ public class UserFacade
 
     public void openSellMenu()
     {
-
+        sellMenu.drawMainMenu();
+        int cfdToClose = sellMenu.intInput();
+        essTrading.closePosition(userID,cfdToClose);
     }
 
     public void openBugReportMenu()
@@ -296,22 +312,21 @@ public class UserFacade
         if(input == 1)
         {
             String bug = bugMenu.stringInput();
-            openBugReportMenu();
+            essTrading.reportBug(userID,bug);
         }
-        else
-        {
-            openStartUpMenu();
-        }
+        openStartUpMenu();
     }
 
     public void exit()
     {
         this.authenticated = false;
+        this.userID = -1;
         sharedFacade.openStartUpMenu();
     }
 
-    public void setAuthentication(boolean authentication)
+    public void setAuthentication(boolean authentication, int userID)
     {
         this.authenticated = authentication;
+        this.userID = userID;
     }
 }

@@ -33,7 +33,7 @@ public class Presentation {
     private void processStartUp(int option) {
         switch (option) {
             case 1:
-                sharedFacade.openStocksMenu();
+                openStocksMenu();
                 break;
             case 2:
                 openLoginMenu();
@@ -42,8 +42,15 @@ public class Presentation {
                 openRegistrationMenu();
                 break;
             default:
+                openStartUpMenu();
                 break;
         }
+    }
+
+    public void openStocksMenu()
+    {
+        sharedFacade.openStocksMenu();
+        openStartUpMenu();
     }
 
     // LOGIN MENU - opens login menu
@@ -55,14 +62,17 @@ public class Presentation {
         System.out.println("Insira a Password\n");
         password = sharedFacade.getPasswordInput();
         User u;
+
+        int userID = essTrading.getUserID(email);
+
         if ((u = authentication(email, password)) != null) {
             if (u instanceof Investor) // IS USER
             {
-                userFacade.setAuthentication(true);
+                userFacade.setAuthentication(true, userID);
                 userFacade.openStartUpMenu();
             } else // IS ADMIN
             {
-                adminFacade.setAuthentication(true);
+                adminFacade.setAuthentication(true, userID);
                 adminFacade.setEssTrading(essTrading);
                 adminFacade.openMainMenu();
             }

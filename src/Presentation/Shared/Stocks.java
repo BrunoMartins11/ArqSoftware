@@ -3,6 +3,7 @@ package Presentation.Shared;
 import BusinessModel.Assets.Asset;
 import Presentation.MainUser;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,12 +31,18 @@ public class Stocks implements MainUser {
     }
 
     @Override
+    public double doubleInput() {
+        Scanner scan = new Scanner(System.in);
+        return scan.nextDouble();
+    }
+
+    @Override
     public String stringInput() {
         Scanner scan = new Scanner(System.in);
         return scan.next();
     }
 
-    public void drawSecondMenu(List<Asset> assets, String type)
+    public void drawSecondMenu(Collection<Asset> assets, String type)
     {
         StringBuilder builder = new StringBuilder();
         int i = 0;

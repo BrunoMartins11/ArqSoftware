@@ -4,8 +4,7 @@ import BusinessModel.Assets.Asset;
 import BusinessModel.ESSTrading;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Collection;
 
 public class SharedFacade
 {
@@ -40,7 +39,7 @@ public class SharedFacade
     // STOCK MENU
     public void openStocksMenu()
     {
-        List<Asset> assets = new ArrayList<>(essTrading.getAssets().values());
+        Collection<Asset> assets = new ArrayList<>();
         String stock = "";
         stocks.drawMainMenu();
         int stockType = stocks.intInput();
@@ -49,24 +48,23 @@ public class SharedFacade
         {
             case 1:
                 stock = "COMMODITY";
+                assets = essTrading.getAssetsByType(stock).values();
                 stocks.drawSecondMenu(assets, stock);
-                openStartUpMenu();
                 break;
             case 2:
                 stock = "COIN";
+                assets = essTrading.getAssetsByType(stock).values();
                 stocks.drawSecondMenu(assets, stock);
-                openStartUpMenu();
                 break;
             case 3:
                 stock = "STOCK";
+                assets = essTrading.getAssetsByType(stock).values();
                 stocks.drawSecondMenu(assets, stock);
-                openStartUpMenu();
                 break;
             default:
                 openStartUpMenu();
         }
-        if(stockType != 4)
-            openStartUpMenu();
+         openStartUpMenu();
     }
 
 

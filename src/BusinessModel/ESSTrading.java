@@ -11,10 +11,7 @@ import Data.CFDdao;
 import Data.UserDAO;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -51,6 +48,30 @@ public class ESSTrading {
 	// GETS USERS
 	public Map<Integer, User> getUsers() {
 		return this.users;
+	}
+
+	public double getUserCredit(int userID)
+	{
+		User u = users.get(userID);
+		double ret = 0;
+		if(u instanceof Investor)
+		{
+			Investor investor = (Investor) u;
+			ret = investor.getCredit();
+		}
+		return ret;
+	}
+
+	public double getTotalInvestedByUser(int userID)
+	{
+		User u = users.get(userID);
+		double ret = 0;
+		if(u instanceof Investor)
+		{
+			Investor investor = (Investor) u;
+			ret = investor.allInvested();
+		}
+		return ret;
 	}
 
 	// GETS ASSETS
@@ -101,6 +122,48 @@ public class ESSTrading {
 		return true;
 	}
 
+	public int getUserID(String email)
+	{
+		//TODO - CHECK FUNCTION
+		int id = -1;
+		for(User u : users.values())
+		{
+			if(u.getEmail().equals(email))
+			{
+				id = u.getId();
+			}
+		}
+
+		return id;
+	}
+
+	// positionType: 1 - Compra; 2 - Venda
+	public void createCFD(int userID, int positionType, int assetID, double numberOfAssets, double tp, double sl)
+	{
+		// TODO - CHECK FUNCTION
+		int id = cfds.size() + 1;
+		Position pos = getPositionType(positionType);
+		double assetPrice = assets.get(assetID).getValue();
+
+		CFD cfd = new CFD(id,tp,sl,assetPrice,numberOfAssets,LocalDateTime.now(),pos,assetID);
+		openCFD(cfd);
+		// TODO ADD TO USER PORTFOLIO
+	}
+
+	private Position getPositionType(int input)
+	{
+		Position pos;
+		if(input == 1)
+		{
+			pos = Position.LONG;
+		}
+		else
+		{
+			pos = Position.SHORT;
+		}
+		return pos;
+	}
+
 	public void openCFD(CFD cfd){
 		cfds.put(cfd.getId(), cfd);
 		(new CFDdao()).save(cfd);
@@ -116,6 +179,13 @@ public class ESSTrading {
 		User u = users.get(userID);
 		if(u instanceof Investor)
 			((Investor) u).takeCredit(value);
+	}
+
+	public void closePosition(int userID, int cfdToClose)
+	{ //TODO CHECK
+		Investor inv = (Investor) users.get(userID);
+		CFD c = cfds.get(cfdToClose); //TODO POSSO IR ASSIM?
+		closeCFD(c);
 	}
 
 	public void closeCFD(CFD cfd){
@@ -135,5 +205,46 @@ public class ESSTrading {
 
 	public void reportBug(int idUser, String text){
 		bugs.add((new Bug(bugs.size()+1, text, LocalDateTime.now(), idUser)));
+	}
+
+	public boolean checkUserCredit(int userID, int assetID, double numberOfAssets)
+	{ // TODO CHECK
+		boolean ret = false;
+
+		double credit = 0;
+		double buyValue = assets.get(assetID).getValue() * numberOfAssets;
+		User u = this.users.get(userID);
+
+		if(u instanceof Investor)
+		{
+			Investor i = (Investor) u;
+			credit = i.getCredit();
+			if(credit >= buyValue)
+				ret = true;
+		}
+
+		return ret;
+	}
+
+	public List<CFD> getPortfolio(int userID)
+	{ // TODO CHECK
+		User u = users.get(userID);
+		List<CFD> cfdList = new ArrayList<>();
+		if( u instanceof Investor)
+		{
+			Investor investor = (Investor) u;
+			List<Integer> cfdIdsList = investor.getPortfolio().getCFDs();
+			for(int i : cfdIdsList)
+			{
+				cfdList.add(cfds.get(i));
+			}
+		}
+		return cfdList;
+	}
+
+	public void removeItemFromWatchList(int userID, int assetId)
+	{ // TODO CHECK
+		Investor inv = (Investor) users.get(userID);
+		inv.removeWatchList(assetId);
 	}
 }
