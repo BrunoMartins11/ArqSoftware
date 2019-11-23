@@ -8,6 +8,7 @@ public class AdminFacade
     private SharedFacade sharedFacade;
     private boolean authenticated;
     private ESSTrading essTrading;
+    private MainMenu mainMenu;
 
     public AdminFacade(SharedFacade sharedFacade)
     {
@@ -19,9 +20,9 @@ public class AdminFacade
         essTrading = ess;
     }
 
-    public void openStartUpMenu()
+    public void openMainMenu()
     {
-
+        mainMenu.drawMainMenu();
     }
 
     public void setAuthentication(boolean b) {

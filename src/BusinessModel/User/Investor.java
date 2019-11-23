@@ -4,13 +4,12 @@ import BusinessModel.Report.Bug;
 import BusinessModel.Trading.*;
 import java.util.*;
 import BusinessModel.Assets.*;
+import Data.BugDAO;
 
 public class Investor extends User {
 
 	private Double credit;
 	private Portfolio portfolio;
-	private List<Integer> watchList;
-
 	public Investor(int id, String username, String email, String password, Portfolio p, Double credit) {
 		super(id, username, email, password);
 		portfolio = p;
@@ -25,12 +24,9 @@ public class Investor extends User {
 		return credit;
 	}
 
-	public List<Asset> getWatchList() {
-		throw new UnsupportedOperationException();
-	}
 
-	public List<CFD> getAllCFD(){
-		throw new UnsupportedOperationException();
+	public List<Integer> getAllCFDids(){
+		return portfolio.getCFDs();
 	}
 
 	public List<Asset> getMarket(){
@@ -58,18 +54,18 @@ public class Investor extends User {
 	}
 
 	public void insertCredit(Double value){
-		throw new UnsupportedOperationException();
+		credit += value;
 	}
 
 	public void takeCredit(Double value){
-		throw new UnsupportedOperationException();
-	}
-
-	public Bug reportBug(String text){
-		throw new UnsupportedOperationException();
+		credit -= value;
 	}
 
 	public int getPortfolioId(){
 		return this.portfolio.getId();
+	}
+
+	public Portfolio getPortfolio() {
+		return portfolio;
 	}
 }

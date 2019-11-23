@@ -10,6 +10,8 @@ import Data.BugDAO;
 import Data.CFDdao;
 import Data.UserDAO;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,12 +83,12 @@ public class ESSTrading {
 		return this.bugs;
 	}
 
-	public boolean loginUser(String email, String password){
+	public User loginUser(String email, String password){
 		for (User u: users.values()) {
 			if(u.getEmail().equals(email) && u.getPassword().equals(password))
-				return true;
+				return u;
 		}
-		return  false;
+		return null;
 	}
 
 	public boolean saveNewUser(String email, String password){
@@ -97,5 +99,41 @@ public class ESSTrading {
 		UserDAO dao = new UserDAO();
 		dao.save(u);
 		return true;
+	}
+
+	public void openCFD(CFD cfd){
+		cfds.put(cfd.getId(), cfd);
+		(new CFDdao()).save(cfd);
+	}
+
+	public void insertCredit(int userID, Double value){
+		User u = users.get(userID);
+		if(u instanceof Investor)
+			((Investor) u).insertCredit(value);
+	}
+
+	public void takeCredit(int userID, Double value){
+		User u = users.get(userID);
+		if(u instanceof Investor)
+			((Investor) u).takeCredit(value);
+	}
+
+	public void closeCFD(CFD cfd){
+		//TODO Calcular o que ganhou/perdeu
+		(new CFDdao()).delete(cfd);
+		cfds.remove(cfd.getId());
+	}
+
+	public List<Asset> getInvestorWatchList(int id){
+		Investor investor = (Investor) users.get(id);
+		List<Asset> watchList = new ArrayList<>();
+		for (Integer i: investor.getPortfolio().getWatchList()) {
+			watchList.add(assets.get(i));
+		}
+		return watchList;
+	}
+
+	public void reportBug(int idUser, String text){
+		bugs.add((new Bug(bugs.size()+1, text, LocalDateTime.now(), idUser)));
 	}
 }

@@ -149,7 +149,7 @@ public class CFDdao implements DAO<CFD> {
                 pStm.setInt(8, idPortfolio);
                 pStm.setInt(9, cfd.getAssetID());
 
-                ResultSet rs = pStm.executeQuery();
+                pStm.execute();
 
             }
         } catch(SQLException e){
@@ -157,9 +157,7 @@ public class CFDdao implements DAO<CFD> {
         } finally {
             Connect.close(con);
         }
-
     }
-
     @Override
     public void update(CFD cfd) {
 
@@ -167,6 +165,17 @@ public class CFDdao implements DAO<CFD> {
 
     @Override
     public void delete(CFD cfd) {
-
+        try {
+            con = Connect.connect();
+            if (con != null) {
+                PreparedStatement pStm = con.prepareStatement("delete from CFD where idCFD=?");
+                pStm.setInt(1,cfd.getId());
+                pStm.execute();
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        } finally {
+            Connect.close(con);
+        }
     }
 }
