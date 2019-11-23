@@ -5,6 +5,7 @@ import BusinessModel.Trading.*;
 import java.util.*;
 import BusinessModel.Assets.*;
 import Data.BugDAO;
+import Data.UserDAO;
 
 public class Investor extends User {
 
@@ -50,7 +51,8 @@ public class Investor extends User {
 	}
 
 	public void removeWatchList(int idAsset){
-		throw new UnsupportedOperationException();
+		// TODO verificar isto porque pode partir (remove por Objeto ou index???)
+		portfolio.removeItemWatchList(idAsset);
 	}
 
 	public void insertCredit(Double value){
@@ -67,5 +69,9 @@ public class Investor extends User {
 
 	public Portfolio getPortfolio() {
 		return portfolio;
+	}
+
+	private void updateDatabase(){
+		(new UserDAO()).save(this);
 	}
 }

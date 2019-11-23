@@ -50,4 +50,8 @@ public class Portfolio {
 	public int getId() {
 		return id;
 	}
+
+	public void removeItemWatchList(int id){
+		watchList.remove(id);
+	}
 }
