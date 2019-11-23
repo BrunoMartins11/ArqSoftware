@@ -63,6 +63,7 @@ public class Presentation {
             } else // IS ADMIN
             {
                 adminFacade.setAuthentication(true);
+                adminFacade.setEssTrading(essTrading);
                 adminFacade.openMainMenu();
             }
 
