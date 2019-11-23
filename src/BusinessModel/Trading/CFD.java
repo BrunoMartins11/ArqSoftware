@@ -1,11 +1,11 @@
 package BusinessModel.Trading;
 
 import BusinessModel.Assets.*;
+import Data.CFDdao;
 
 import java.time.LocalDateTime;
 
 public class CFD {
-
 
 	private int id;
 	private Double takeProfit;
@@ -15,9 +15,6 @@ public class CFD {
 	private LocalDateTime date;
 	private Position position;
 	private int assetID;
-
-
-
 
 	public CFD(int id, Double takeProfit, Double stopLoss, Double priceAcquisition, Double quantity, LocalDateTime date, Position position, int assetID) {
 		this.id = id;
@@ -31,8 +28,6 @@ public class CFD {
 	}
 
 	public CFD() {
-		// TODO - implement CFD.CFD
-		throw new UnsupportedOperationException();
 	}
 
 	public int getId() {
