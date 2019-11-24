@@ -107,4 +107,37 @@ public class PortfolioDAO implements DAO<Portfolio> {
     public void delete(Portfolio portfolio) {
 
     }
+
+    public void saveToPortfolioWL(int idPortfolio, int idAsset){
+        try {
+            con = connect();
+            if(con != null) {
+                PreparedStatement pStm = con.prepareStatement("insert into Portfolio_has_Asset values (?,?)");
+                pStm.setInt(1, idPortfolio);
+                pStm.setInt(2, idAsset);
+                pStm.execute();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connect.close(con);
+        }
+    }
+
+    public void deletePortfolioWLItem(int idPortfolio, int idAsset){
+        try {
+            con = connect();
+            if(con != null) {
+                PreparedStatement pStm = con.prepareStatement("delete from Portfolio_has_Asset where Portfolio_idPortfolio=? " +
+                        "and Asset_idAsset=?");
+                pStm.setInt(1, idPortfolio);
+                pStm.setInt(2, idAsset);
+                pStm.execute();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connect.close(con);
+        }
+    }
 }

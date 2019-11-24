@@ -76,4 +76,8 @@ public class Investor extends User {
 	private void updateDatabase(){
 		(new UserDAO()).save(this);
 	}
+
+	public void addToWatchList(int assetId){
+		portfolio.addItemToWatchList(assetId);
+	}
 }

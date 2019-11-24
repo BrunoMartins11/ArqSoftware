@@ -33,7 +33,7 @@ public class Portfolio {
 	public void removeCFD(int id){
 		for (Integer i: CFDs) {
 			if(i == id){
-				CFDs.remove(id);
+				CFDs.remove((Integer) id);
 				break;
 			}
 		}
@@ -51,7 +51,13 @@ public class Portfolio {
 		return id;
 	}
 
-	public void removeItemWatchList(int id){
-		watchList.remove(id);
+	public void removeItemWatchList(int idAsset){
+		watchList.remove((Integer) idAsset);
+		(new PortfolioDAO()).deletePortfolioWLItem(id, idAsset);
+	}
+
+	public void addItemToWatchList(int idAsset){
+		watchList.add(idAsset);
+		(new PortfolioDAO()).saveToPortfolioWL(id, idAsset);
 	}
 }

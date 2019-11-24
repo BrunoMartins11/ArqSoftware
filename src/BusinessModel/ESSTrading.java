@@ -247,4 +247,9 @@ public class ESSTrading {
 		Investor inv = (Investor) users.get(userID);
 		inv.removeWatchList(assetId);
 	}
+
+	public void addItemToWatchList(int userID, int assetID){
+		Investor inv = (Investor) users.get(userID);
+		inv.addToWatchList(assetID);
+	}
 }
