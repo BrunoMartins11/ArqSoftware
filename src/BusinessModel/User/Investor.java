@@ -57,10 +57,12 @@ public class Investor extends User {
 
 	public void insertCredit(Double value){
 		credit += value;
+		(new UserDAO()).update(this);
 	}
 
 	public void takeCredit(Double value){
 		credit -= value;
+		(new UserDAO()).update(this);
 	}
 
 	public int getPortfolioId(){

@@ -16,7 +16,6 @@ public class Bug {
 		this.error = error;
 		this.idClient = idClient;
 		this.date = date;
-		(new BugDAO()).save(this);
 	}
 
 	public Bug() {

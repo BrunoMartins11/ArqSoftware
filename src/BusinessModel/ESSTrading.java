@@ -133,7 +133,6 @@ public class ESSTrading {
 				id = u.getId();
 			}
 		}
-
 		return id;
 	}
 
@@ -183,7 +182,7 @@ public class ESSTrading {
 	public void closePosition(int userID, int cfdToClose)
 	{ //TODO CHECK
 		Investor inv = (Investor) users.get(userID);
-		CFD c = cfds.get(cfdToClose); //TODO POSSO IR ASSIM?
+		CFD c = cfds.get(cfdToClose);
 		closeCFD(c);
 	}
 
@@ -203,7 +202,9 @@ public class ESSTrading {
 	}
 
 	public void reportBug(int idUser, String text){
-		bugs.add((new Bug(bugs.size()+1, text, LocalDateTime.now(), idUser)));
+		Bug b;
+		bugs.add(b = (new Bug(bugs.size()+1, text, LocalDateTime.now(), idUser)));
+		(new BugDAO()).save(b);
 	}
 
 	public boolean checkUserCredit(int userID, int assetID, double numberOfAssets)

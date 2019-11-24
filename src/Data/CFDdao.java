@@ -37,13 +37,13 @@ public class CFDdao implements DAO<CFD> {
                         cfds.add(new CFD(rs1.getInt("idCFD"),
                                 rs1.getDouble("TakeProfit"), rs1.getDouble("StopLoss"),
                                 rs1.getDouble("AquisitionPrice"), rs1.getDouble("Quantity"),
-                                LocalDateTime.parse(rs1.getString("Date"), formatter),
+                                LocalDateTime.parse(rs1.getString("Date")),
                                 Position.SHORT, rs1.getInt("Asset_idAsset")));
                     } else {
                         cfds.add(new CFD(rs1.getInt("idCFD"),
                                 rs1.getDouble("TakeProfit"), rs1.getDouble("StopLoss"),
                                 rs1.getDouble("AquisitionPrice"), rs1.getDouble("Quantity"),
-                                LocalDateTime.parse(rs1.getString("Date"), formatter),
+                                LocalDateTime.parse(rs1.getString("Date")),
                                 Position.LONG, rs1.getInt("Asset_idAsset")));
                     }
                 }
