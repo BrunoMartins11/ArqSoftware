@@ -146,8 +146,7 @@ public class ESSTrading {
 		double assetPrice = assets.get(assetID).getValue();
 
 		CFD cfd = new CFD(id,tp,sl,assetPrice,numberOfAssets,LocalDateTime.now(),pos,assetID);
-		openCFD(cfd);
-		// TODO ADD TO USER PORTFOLIO
+		openCFD(cfd, ((Investor) users.get(userID)).getPortfolioId());
 	}
 
 	private Position getPositionType(int input)
@@ -164,9 +163,9 @@ public class ESSTrading {
 		return pos;
 	}
 
-	public void openCFD(CFD cfd){
+	public void openCFD(CFD cfd, int portfolioId){
 		cfds.put(cfd.getId(), cfd);
-		(new CFDdao()).save(cfd);
+		(new CFDdao()).saveToPortfolio(cfd, portfolioId);
 	}
 
 	public void insertCredit(int userID, Double value){
