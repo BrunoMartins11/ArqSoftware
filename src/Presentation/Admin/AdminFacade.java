@@ -2,6 +2,7 @@ package Presentation.Admin;
 
 import BusinessModel.ESSTrading;
 import BusinessModel.Report.Bug;
+import Presentation.Shared.InputInsert;
 import Presentation.Shared.SharedFacade;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class AdminFacade
     private boolean authenticated;
     private ESSTrading essTrading;
     private MainMenu mainMenu;
+    private InputInsert input;
     private int userID;
 
     public AdminFacade(SharedFacade sharedFacade)
@@ -29,7 +31,7 @@ public class AdminFacade
         mainMenu = new MainMenu();
         mainMenu.drawMainMenu();
 
-        int scanned = mainMenu.intInput();
+        int scanned = input.getIntInput();
         if(scanned == 1){
             sharedFacade.openStocksMenu();
         }

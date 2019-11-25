@@ -2,8 +2,6 @@ package Presentation.User;
 
 import Presentation.MainUser;
 
-import java.util.Scanner;
-
 public class BuyMenu implements MainUser
 {
 
@@ -12,29 +10,10 @@ public class BuyMenu implements MainUser
     {
         StringBuilder builder = new StringBuilder();
         builder.append("Menu Abrir Posição\n")
-               .append("Indique o Número do Item\n");
+               .append("Indique o Número do Item\n")
+               .append("(-1 para cancelar)\n");
 
         System.out.println(builder);
-    }
-
-    @Override
-    public int intInput()
-    {
-        Scanner scan = new Scanner(System.in);
-        return scan.nextInt();
-    }
-
-    @Override
-    public String stringInput()
-    {
-        Scanner scan = new Scanner(System.in);
-        return scan.next();
-    }
-
-    public double doubleInput()
-    {
-        Scanner scan = new Scanner(System.in);
-        return scan.nextDouble();
     }
 
     public void drawPositionType()

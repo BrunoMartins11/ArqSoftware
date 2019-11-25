@@ -12,6 +12,7 @@ public class SharedFacade
     private StartupMenu startMenu;
     private Login login;
     private Stocks stocks;
+    private InputInsert input;
     private ESSTrading essTrading;
 
     public SharedFacade()
@@ -19,6 +20,7 @@ public class SharedFacade
         registration = new Registration();
         startMenu = new StartupMenu();
         stocks = new Stocks();
+        input = new InputInsert();
         login = new Login();
     }
 
@@ -32,8 +34,34 @@ public class SharedFacade
     {
         int option;
         startMenu.drawMainMenu();
-        option = startMenu.intInput();
+        option = input.getIntInput();
         return option;
+    }
+
+    public void mainMenu()
+    {
+        int option;
+        startMenu.drawMainMenu();
+        option = input.getIntInput();
+        processInput(option);
+    }
+
+    private void processInput(int option)
+    {
+        switch (option)
+        {
+            case 1:
+                openStocksMenu();
+                break;
+            case 2:
+                openLoginMenu();
+                break;
+            case 3:
+                openRegistrationMenu();
+                break;
+            case 4:
+                break;
+        }
     }
 
     // STOCK MENU
@@ -42,7 +70,7 @@ public class SharedFacade
         Collection<Asset> assets = new ArrayList<>();
         String stock = "";
         stocks.drawMainMenu();
-        int stockType = stocks.intInput();
+        int stockType = input.getIntInput();
 
         switch (stockType)
         {
@@ -50,21 +78,24 @@ public class SharedFacade
                 stock = "COMMODITY";
                 assets = essTrading.getAssetsByType(stock).values();
                 stocks.drawSecondMenu(assets, stock);
+                mainMenu();
                 break;
             case 2:
                 stock = "COIN";
                 assets = essTrading.getAssetsByType(stock).values();
                 stocks.drawSecondMenu(assets, stock);
+                mainMenu();
                 break;
             case 3:
                 stock = "STOCK";
                 assets = essTrading.getAssetsByType(stock).values();
                 stocks.drawSecondMenu(assets, stock);
+                openStartUpMenu();
+                mainMenu();
                 break;
             default:
                 openStartUpMenu();
         }
-         openStartUpMenu();
     }
 
 
@@ -80,10 +111,10 @@ public class SharedFacade
     }
 
     public String getEmailInput() {
-        return login.stringInput();
+        return input.getStringInput();
     }
 
     public String getPasswordInput() {
-        return login.stringInput();
+        return input.getStringInput();
     }
 }

@@ -1,11 +1,9 @@
 package Presentation.User;
 
-import BusinessModel.Assets.Asset;
 import BusinessModel.Trading.CFD;
 import Presentation.MainUser;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class PortfolioMenu implements MainUser {
     @Override
@@ -61,23 +59,4 @@ public class PortfolioMenu implements MainUser {
         return builder.toString();
     }
 
-    @Override
-    public int intInput()
-    {
-        Scanner scan = new Scanner(System.in);
-        return scan.nextInt();
-    }
-
-    @Override
-    public double doubleInput() {
-        Scanner scan = new Scanner(System.in);
-        return scan.nextDouble();
-    }
-
-    @Override
-    public String stringInput()
-    {
-        Scanner scan = new Scanner(System.in);
-        return scan.next();
-    }
 }

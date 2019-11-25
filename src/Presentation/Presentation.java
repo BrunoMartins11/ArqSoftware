@@ -41,8 +41,7 @@ public class Presentation {
             case 3:
                 openRegistrationMenu();
                 break;
-            default:
-                openStartUpMenu();
+            case 4:
                 break;
         }
     }

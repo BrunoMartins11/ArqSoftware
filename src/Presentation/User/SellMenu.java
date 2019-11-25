@@ -2,8 +2,6 @@ package Presentation.User;
 
 import Presentation.MainUser;
 
-import java.util.Scanner;
-
 public class SellMenu implements MainUser {
     @Override
     public void drawMainMenu()
@@ -13,25 +11,5 @@ public class SellMenu implements MainUser {
                .append("Indique a ação a fechar\n");
 
         System.out.println(builder);
-    }
-
-    @Override
-    public int intInput()
-    {
-        Scanner scan = new Scanner(System.in);
-        return scan.nextInt();
-    }
-
-    @Override
-    public double doubleInput() {
-        Scanner scan = new Scanner(System.in);
-        return scan.nextDouble();
-    }
-
-    @Override
-    public String stringInput()
-    {
-        Scanner scan = new Scanner(System.in);
-        return scan.next();
     }
 }

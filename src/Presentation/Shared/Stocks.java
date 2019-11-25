@@ -2,18 +2,13 @@ package Presentation.Shared;
 
 import BusinessModel.Assets.Asset;
 import Presentation.MainUser;
-
 import java.util.Collection;
-import java.util.List;
-import java.util.Scanner;
 
 public class Stocks implements MainUser {
     @Override
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        Scanner scan = new Scanner(System.in);
-        int input;
 
         builder.append("Menu Ver Mercados\n")
                .append("-- Escolha o tipo de Mercado --\n")
@@ -22,24 +17,6 @@ public class Stocks implements MainUser {
                .append("3. Stock\n")
                .append("4. Voltar ao Menu Iniciar\n");
         System.out.println(builder);
-    }
-
-    @Override
-    public int intInput() {
-        Scanner scan = new Scanner(System.in);
-        return scan.nextInt();
-    }
-
-    @Override
-    public double doubleInput() {
-        Scanner scan = new Scanner(System.in);
-        return scan.nextDouble();
-    }
-
-    @Override
-    public String stringInput() {
-        Scanner scan = new Scanner(System.in);
-        return scan.next();
     }
 
     public void drawSecondMenu(Collection<Asset> assets, String type)
