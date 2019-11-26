@@ -103,11 +103,12 @@ public class ESSTrading {
 	}
 
 	public User loginUser(String email, String password){
+	    User user = null;
 		for (User u: users.values()) {
 			if(u.getEmail().equals(email) && u.getPassword().equals(password))
-				return u;
+				user = u;
 		}
-		return null;
+		return user;
 	}
 
 	public boolean saveNewUser(String email, String password){
