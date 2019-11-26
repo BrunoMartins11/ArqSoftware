@@ -9,6 +9,7 @@ import Data.AssetDAO;
 import Data.BugDAO;
 import Data.CFDdao;
 import Data.UserDAO;
+import Services.BackgroundWorker;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -19,6 +20,7 @@ public class ESSTrading {
 	private Map<Integer, Asset> assets;
 	private Map<Integer, CFD> cfds;
 	private List<Bug> bugs;
+	private BackgroundWorker bw;
 
 	public ESSTrading(){
 
@@ -41,6 +43,10 @@ public class ESSTrading {
 		}
 
 		bugs = (new BugDAO()).getAll();
+
+		bw = new BackgroundWorker(assets);
+		Thread t = new Thread(bw);
+		t.start();
 	}
 
 	// GETS USERS

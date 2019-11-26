@@ -102,7 +102,7 @@ public class AssetDAO implements DAO<Asset> {
                 pStm.setDouble(3, asset.getValue());
                 pStm.setInt(4,asset.getId());
 
-                ResultSet rs = pStm.executeQuery();
+                pStm.execute();
 
             }
         } catch(SQLException e){

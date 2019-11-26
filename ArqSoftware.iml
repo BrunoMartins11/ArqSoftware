@@ -10,11 +10,13 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../Connectors/mysql-connector-java-8.0.18/mysql-connector-java-8.0.18.jar!/" />
+          <root url="jar://$USER_HOME$/Connectors/mysql-connector-java-8.0.18/mysql-connector-java-8.0.18.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="gson-fire-1.8.0" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-8.0.18" level="project" />
   </component>
 </module>

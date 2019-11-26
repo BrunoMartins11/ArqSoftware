@@ -1,6 +1,9 @@
 package BusinessModel.Assets;
 
-public class Asset {
+import BusinessModel.Observer;
+import Data.AssetDAO;
+
+public class Asset implements Observer {
 
 
 	private int id;
@@ -31,4 +34,9 @@ public class Asset {
 		return type;
 	}
 
+	@Override
+	public void update(Double value) {
+		this.value = value;
+		(new AssetDAO()).update(this);
+	}
 }
