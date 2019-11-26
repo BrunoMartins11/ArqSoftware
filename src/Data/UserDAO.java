@@ -100,7 +100,23 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public void update(User user) {
+        try {
+            con = Connect.connect();
+            if (con != null) {
+                PreparedStatement pStm = con.prepareStatement("update  User set Credit=? where idUser=?");
+                if(user instanceof Investor) {
+                    Investor i = (Investor) user;
+                    pStm.setDouble(1, i.getCredit());
+                    pStm.setInt(2, i.getId());
+                    ResultSet rs = pStm.executeQuery();
+                }
 
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        } finally {
+            Connect.close(con);
+        }
     }
 
     @Override
