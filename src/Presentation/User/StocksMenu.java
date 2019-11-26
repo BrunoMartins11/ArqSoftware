@@ -21,27 +21,6 @@ public class StocksMenu implements MainUser
         System.out.println(builder);
     }
 
-    public void drawWatchListMenu(List<Asset> assets)
-    {
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("WatchList\n")
-                .append("NR. | Item | Value | State \n");
-
-
-        for(Asset a : assets)
-        {
-            builder.append(insertItem(a));
-        }
-
-        builder.append("------------------------------------------------\n")
-                .append("1. Abrir Posição\n")
-                .append("2. Remover Item da WatchList\n")
-                .append("3. Regressar\n");
-
-        System.out.println(builder);
-    }
-
     public void drawSecondMenu(Collection<Asset> assets, String type)
     {
         StringBuilder builder = new StringBuilder();
@@ -49,7 +28,7 @@ public class StocksMenu implements MainUser
         builder.append("Ver Mercados - ")
                 .append(type)
                 .append("\n")
-                .append("NR. | Item | Value | State \n");
+                .append("NR. | Item | Value \n");
 
 
         for(Asset a : assets)

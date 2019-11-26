@@ -143,7 +143,9 @@ public class ESSTrading {
 		double assetPrice = assets.get(assetID).getValue();
 
 		CFD cfd = new CFD(id,tp,sl,assetPrice,numberOfAssets,LocalDateTime.now(),pos,assetID);
-		openCFD(cfd, ((Investor) users.get(userID)).getPortfolioId());
+		int portfolioID = ((Investor) users.get(userID)).getPortfolioId();
+		((Investor) users.get(userID)).getPortfolio().addCFD(id);
+		openCFD(cfd, portfolioID);
 	}
 
 	private Position getPositionType(int input)
@@ -210,6 +212,7 @@ public class ESSTrading {
 		boolean ret = false;
 
 		double credit = 0;
+		double finalVal = 0;
 		double buyValue = assets.get(assetID).getValue() * numberOfAssets;
 		User u = this.users.get(userID);
 
@@ -218,7 +221,11 @@ public class ESSTrading {
 			Investor i = (Investor) u;
 			credit = i.getCredit();
 			if(credit >= buyValue)
+			{
 				ret = true;
+				i = (Investor) users.get(userID);
+				i.takeCredit(buyValue);
+			}
 		}
 
 		return ret;

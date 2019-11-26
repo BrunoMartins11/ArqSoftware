@@ -178,7 +178,7 @@ public class UserFacade
     private void openWatchListMenu()
     {
         Collection<Asset> assets = new ArrayList<>();
-        stocksMenu.drawWatchListMenu(essTrading.getInvestorWatchList(userID));
+        watchListMenu.drawWatchListMenu(essTrading.getInvestorWatchList(userID));
         int in = input.getIntInput();
         processWatchListInput(in);
     }
@@ -265,15 +265,27 @@ public class UserFacade
         int in;
         this.stocksMenu.drawSecondMenu(assetList, stock);
         in = input.getIntInput();
-        if(in == 1)
+
+        switch(in)
         {
-            openBuyMenu(assetList);
+            case 1:
+                openBuyMenu(assetList);
+                break;
+            case 2:
+                openAddToWatchList();
+                break;
+            case 3:
+                openStocksMenu();
+                break;
         }
-        else if(in == 2)
-             {
-                 openWatchListMenu();
-             }
-             else openStocksMenu();
+    }
+
+    private void openAddToWatchList()
+    {
+        watchListMenu.addToWatchListMenu();
+        int in = input.getIntInput();
+        essTrading.addItemToWatchList(userID,in);
+        openStartUpMenu();
     }
 
     public void openBuyMenu(Collection<Asset> assetList)
@@ -308,7 +320,7 @@ public class UserFacade
         double tp = 0;
         double sl = 0;
         System.out.println("Indique o número de ativos a adquirir\n");
-        int numberOfAssets = input.getIntInput();
+        double numberOfAssets = input.getDoubleInput();
         boolean userhasMoney = essTrading.checkUserCredit(userID, assetID, numberOfAssets);
         if(userhasMoney)
         {
@@ -322,6 +334,7 @@ public class UserFacade
                 sl = input.getDoubleInput();
             }
             essTrading.createCFD(userID,positionType, assetID,numberOfAssets,tp,sl);
+            openStartUpMenu();
         }
         else
         {

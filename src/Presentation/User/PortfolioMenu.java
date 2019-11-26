@@ -16,7 +16,7 @@ public class PortfolioMenu implements MainUser {
     {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("NR. | AssetID | Date | Position | Buy Value | Quantity | TP Value | SL Value\n");
+        builder.append("NR. | AssetID | Date | Position | Buy Value / Quantity | TP Value | SL Value\n");
 
 
         for(CFD a : cfds)
@@ -43,7 +43,7 @@ public class PortfolioMenu implements MainUser {
                 .append(" | ")
                 .append(o.getAssetID())
                 .append(" | ")
-                .append(o.getDate().toLocalTime().toString())
+                .append(o.getDate().toString())
                 .append(" | ")
                 .append(o.getPosition().toString())
                 .append(" | ")
