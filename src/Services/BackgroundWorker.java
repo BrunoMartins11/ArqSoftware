@@ -36,6 +36,7 @@ public class BackgroundWorker implements Subscriber, Runnable {
     public void notifyObservers() {
         for (Pair name: names) {
             assets.get(name.getKey()).update((Double) name.getValue());
+            System.out.println(name.getValue());
         }
     }
 
@@ -47,17 +48,18 @@ public class BackgroundWorker implements Subscriber, Runnable {
 
         try {
             while (!exit) {
+                names = new ArrayList<>();
                 for (Asset a : assets.values()) {
-                    if(a.getCompany().equals(AssetType.STOCK))
+                    if(a.getType() == AssetType.STOCK)
                     {
                         SecurityApi securityApi = new SecurityApi();
                         RealtimeStockPrice result = securityApi.getSecurityRealtimePrice(a.getCompany(), null);
                         if(result.getLastPrice().doubleValue() != a.getValue()){
-                            a.update(result.getLastPrice().doubleValue());
-                            System.out.println(result.getLastPrice().toString());
-                        }
+                            names.add(new Pair<>(a.getCompany(), result.getLastPrice().doubleValue()));
+                     }
                     }
                 }
+                notifyObservers();
                 Thread.sleep(10000);
             }
         }
