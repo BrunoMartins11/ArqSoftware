@@ -60,7 +60,6 @@ public class SharedFacade
                 openRegistrationMenu();
                 break;
             case 4:
-
                 break;
         }
     }
@@ -97,8 +96,7 @@ public class SharedFacade
                 mainMenu();
         }
     }
-
-
+        
     // LOGIN MENU - opens login menu
     public void openLoginMenu()
     {

@@ -48,7 +48,7 @@ public class UserFacade
         this.essTrading = ess;
     }
 
-    public int openStartUpMenu()
+    public void openStartUpMenu()
     {
         int a = 0;
         if(authenticated)
@@ -60,7 +60,6 @@ public class UserFacade
         {
             System.out.println("Não está Autenticado!");
         }
-        return a;
     }
 
     public int processStartUpInput(int input)
@@ -384,7 +383,7 @@ public class UserFacade
     {
         this.authenticated = false;
         this.userID = -1;
-        sharedFacade.mainMenu();
+        essTrading.stopThread();
     }
 
     public void setAuthentication(boolean authentication, int userID)

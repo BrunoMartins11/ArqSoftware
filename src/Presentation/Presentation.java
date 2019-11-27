@@ -69,7 +69,7 @@ public class Presentation {
             if (u instanceof Investor) // IS USER
             {
                 userFacade.setAuthentication(true, userID);
-                openUserMainMenu();
+                userFacade.openStartUpMenu();
             } else // IS ADMIN
             {
                 adminFacade.setAuthentication(true, userID);
@@ -84,14 +84,6 @@ public class Presentation {
         }
     }
 
-    public void openUserMainMenu()
-    {
-        int opt = userFacade.openStartUpMenu();
-        if(opt == 7)
-        {
-            openStartUpMenu();
-        }
-    }
 
     // REGISTRATION MENU - opens registration menu
     public void openRegistrationMenu() {
