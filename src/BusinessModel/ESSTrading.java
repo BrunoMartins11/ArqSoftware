@@ -190,11 +190,21 @@ public class ESSTrading {
 	{ //TODO CHECK
 		Investor inv = (Investor) users.get(userID);
 		CFD c = cfds.get(cfdToClose);
+		double credit = 0;
+		if(c.getPosition().equals(Position.LONG))
+		{
+			credit = c.getPriceAcquisition()*c.getQuantity() - assets.get(cfdToClose).getValue();
+			insertCredit(userID,credit);
+		}
+		else
+		{
+			credit = assets.get(cfdToClose).getValue() - c.getPriceAcquisition()*c.getQuantity();
+			insertCredit(userID,credit);
+		}
 		closeCFD(c);
 	}
 
 	public void closeCFD(CFD cfd){
-		//TODO Calcular o que ganhou/perdeu
 		(new CFDdao()).delete(cfd);
 		cfds.remove(cfd.getId());
 	}
@@ -219,7 +229,6 @@ public class ESSTrading {
 		boolean ret = false;
 
 		double credit = 0;
-		double finalVal = 0;
 		double buyValue = assets.get(assetID).getValue() * numberOfAssets;
 		User u = this.users.get(userID);
 
@@ -263,5 +272,10 @@ public class ESSTrading {
 	public void addItemToWatchList(int userID, int assetID){
 		Investor inv = (Investor) users.get(userID);
 		inv.addToWatchList(assetID);
+	}
+
+	public void stopThread()
+	{
+		bw.stop();
 	}
 }

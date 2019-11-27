@@ -48,20 +48,22 @@ public class UserFacade
         this.essTrading = ess;
     }
 
-    public void openStartUpMenu()
+    public int openStartUpMenu()
     {
+        int a = 0;
         if(authenticated)
         {
             mainMenu.drawMainMenu();
-            processStartUpInput(input.getIntInput());
+            a = processStartUpInput(input.getIntInput());
         }
         else
         {
             System.out.println("Não está Autenticado!");
         }
+        return a;
     }
 
-    public void processStartUpInput(int input)
+    public int processStartUpInput(int input)
     {
         switch(input)
         {
@@ -87,6 +89,7 @@ public class UserFacade
                 exit();
                 break;
         }
+        return input;
     }
 
     private void openInsertCreditMenu()
@@ -332,6 +335,14 @@ public class UserFacade
                 tp = input.getDoubleInput();
                 buyMenu.slValueDraw();
                 sl = input.getDoubleInput();
+                if(tp == -1)
+                {
+                    tp = 0;
+                }
+                if(sl == -1)
+                {
+                    sl = 0;
+                }
             }
             essTrading.createCFD(userID,positionType, assetID,numberOfAssets,tp,sl);
             openStartUpMenu();
@@ -347,7 +358,14 @@ public class UserFacade
     {
         sellMenu.drawMainMenu();
         int cfdToClose = input.getIntInput();
-        essTrading.closePosition(userID,cfdToClose);
+        if(cfdToClose != -1)
+        {
+            essTrading.closePosition(userID,cfdToClose);
+        }
+        else
+        {
+            openStartUpMenu();
+        }
     }
 
     public void openBugReportMenu()
@@ -366,7 +384,7 @@ public class UserFacade
     {
         this.authenticated = false;
         this.userID = -1;
-        sharedFacade.openStartUpMenu();
+        sharedFacade.mainMenu();
     }
 
     public void setAuthentication(boolean authentication, int userID)

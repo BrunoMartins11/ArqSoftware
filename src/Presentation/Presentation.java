@@ -42,6 +42,7 @@ public class Presentation {
                 openRegistrationMenu();
                 break;
             case 4:
+                essTrading.stopThread();
                 break;
         }
     }
@@ -68,7 +69,7 @@ public class Presentation {
             if (u instanceof Investor) // IS USER
             {
                 userFacade.setAuthentication(true, userID);
-                userFacade.openStartUpMenu();
+                openUserMainMenu();
             } else // IS ADMIN
             {
                 adminFacade.setAuthentication(true, userID);
@@ -79,7 +80,16 @@ public class Presentation {
         } else // authentication failed
         {
             System.out.println("Email ou Password Errados\n");
-            sharedFacade.openStartUpMenu();
+            openStartUpMenu();
+        }
+    }
+
+    public void openUserMainMenu()
+    {
+        int opt = userFacade.openStartUpMenu();
+        if(opt == 7)
+        {
+            openStartUpMenu();
         }
     }
 

@@ -60,6 +60,7 @@ public class SharedFacade
                 openRegistrationMenu();
                 break;
             case 4:
+
                 break;
         }
     }
@@ -90,11 +91,10 @@ public class SharedFacade
                 stock = "STOCK";
                 assets = essTrading.getAssetsByType(stock).values();
                 stocks.drawSecondMenu(assets, stock);
-                openStartUpMenu();
                 mainMenu();
                 break;
             default:
-                openStartUpMenu();
+                mainMenu();
         }
     }
 

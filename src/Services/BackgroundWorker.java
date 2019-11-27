@@ -1,6 +1,7 @@
 package Services;
 
 import BusinessModel.Assets.Asset;
+import BusinessModel.Assets.AssetType;
 import BusinessModel.Subscriber;
 import com.intrinio.api.SecurityApi;
 import com.intrinio.invoker.ApiClient;
@@ -15,6 +16,7 @@ import java.util.*;
 public class BackgroundWorker implements Subscriber, Runnable {
     Map<String, Asset> assets;
     List<Pair<String, Double>> names;
+    boolean exit;
 
     public BackgroundWorker(Map<Integer, Asset> assetsmap) {
         assets = new HashMap<>();
@@ -22,6 +24,7 @@ public class BackgroundWorker implements Subscriber, Runnable {
             assets.put(a.getCompany(), a);
         };
         this.names = new ArrayList<>();
+        this.exit = false;
     }
 
     @Override
@@ -43,21 +46,29 @@ public class BackgroundWorker implements Subscriber, Runnable {
         auth.setApiKey("OjU4MmY0MDY1NjFkZTZiMjgxOGY1NDFjNjBjODk4ZDk4");
 
         try {
-            while (true) {
+            while (!exit) {
                 for (Asset a : assets.values()) {
-                    SecurityApi securityApi = new SecurityApi();
-                    RealtimeStockPrice result = securityApi.getSecurityRealtimePrice(a.getCompany(), null);
-                    if(result.getLastPrice().doubleValue() != a.getValue()){
-                        a.update(result.getLastPrice().doubleValue());
-                        System.out.println(result.getLastPrice().toString());
+                    if(a.getCompany().equals(AssetType.STOCK))
+                    {
+                        SecurityApi securityApi = new SecurityApi();
+                        RealtimeStockPrice result = securityApi.getSecurityRealtimePrice(a.getCompany(), null);
+                        if(result.getLastPrice().doubleValue() != a.getValue()){
+                            a.update(result.getLastPrice().doubleValue());
+                            System.out.println(result.getLastPrice().toString());
+                        }
                     }
-            }
-            Thread.sleep(10000);
+                }
+                Thread.sleep(10000);
             }
         }
         catch (ApiException | InterruptedException e ) {
             System.err.println("Exception when calling SecurityApi#getSecurityStockPrices");
             e.printStackTrace();
         }
+    }
+
+    public void stop()
+    {
+        this.exit = true;
     }
 }
