@@ -30,7 +30,7 @@ public class AdminFacade
     {
         mainMenu = new MainMenu();
         mainMenu.drawMainMenu();
-
+        input = new InputInsert();
         int scanned = input.getIntInput();
         if(scanned == 1){
             sharedFacade.openStocksMenu();
