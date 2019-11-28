@@ -22,16 +22,19 @@ public class BackgroundWorker implements Subscriber, Runnable {
     List<Pair<String, Double>> names;
     boolean exit;
 
-    public BackgroundWorker(Map<Integer, Asset> assetsmap) {
+    public BackgroundWorker() {
         assets = new HashMap<>();
-
         this.names = new ArrayList<>();
         this.exit = false;
     }
 
     @Override
     public void addObserver(Observer o) {
-
+        if(o instanceof Asset)
+        {
+            Asset a = (Asset) o;
+            this.assets.put(a.getCompany(),a);
+        }
     }
 
     @Override

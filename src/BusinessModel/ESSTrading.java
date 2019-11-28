@@ -44,7 +44,7 @@ public class ESSTrading {
 
 		bugs = (new BugDAO()).getAll();
 
-		bw = new BackgroundWorker(assets);
+		bw = new BackgroundWorker();
 		for (Asset a : this.assets.values())
 		{
 			bw.addObserver(a);
