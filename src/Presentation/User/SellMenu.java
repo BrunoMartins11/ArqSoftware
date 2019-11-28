@@ -11,6 +11,6 @@ public class SellMenu implements MainUser {
                .append("Indique o ID do CFD a fechar\n")
                .append("(-1 para cancelar)\n");
 
-        System.out.println(builder);
+        System.out.println(builder.toString());
     }
 }

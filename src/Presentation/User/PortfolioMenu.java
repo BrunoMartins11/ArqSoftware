@@ -4,6 +4,8 @@ import BusinessModel.Assets.Asset;
 import BusinessModel.Trading.CFD;
 import Presentation.MainUser;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,11 +24,17 @@ public class PortfolioMenu implements MainUser {
     {
         StringBuilder builder = new StringBuilder();
         String company = "";
-        if(cfdList.size() > 0)
+
+        List<CFD> list = new ArrayList<>();
+        list = cfdList;
+        Map<Integer,Asset> map = new HashMap<>();
+        map = assets;
+
+        if(list.size() > 0 && map.size() > 0)
         {
-            for(CFD a : cfdList)
+            for(CFD a : list)
             {
-                company = assets.get(a.getAssetID()).getCompany();
+                company = map.get(a.getAssetID()).getCompany();
                 builder.append(insertItem(a,company));
             }
         }

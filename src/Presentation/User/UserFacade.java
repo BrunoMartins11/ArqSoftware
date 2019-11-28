@@ -1,10 +1,10 @@
 package Presentation.User;
 import BusinessModel.Assets.Asset;
 import BusinessModel.ESSTrading;
+import BusinessModel.Trading.CFD;
 import Presentation.Shared.InputInsert;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 public class UserFacade
 {
@@ -107,7 +107,7 @@ public class UserFacade
     private void openPortfolioMenu()
     {
         this.portfolioMenu.drawMainMenu();
-        this.portfolioMenu.drawSecondMenu(essTrading.getPortfolio(userID), essTrading.getAssets());
+        this.portfolioMenu.drawSecondMenu(essTrading.getPortfolio(userID), essTrading.getAssets()); //TODO ESTOURA
         int in = input.getIntInput();
         processPortfolioInput(in);
     }
@@ -251,6 +251,10 @@ public class UserFacade
                 break;
             case 4:
                 openStartUpMenu();
+                break;
+            default:
+                System.out.println("Input Errado\n");
+                openStocksMenu();
                 break;
         }
     }
