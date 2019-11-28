@@ -36,8 +36,11 @@ public class PortfolioMenu implements MainUser {
             {
                 for(CFD a : list)
                 {
-                    company = map.get(a.getAssetID()).getCompany();
-                    builder.append(insertItem(a,company));
+                    if( a != null)
+                    {
+                        company = map.get(a.getAssetID()).getCompany();
+                        builder.append(insertItem(a,company));
+                    }
                 }
             }
             System.out.println(builder.toString());
