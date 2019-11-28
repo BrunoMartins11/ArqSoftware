@@ -9,7 +9,7 @@ public class BuyMenu implements MainUser
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Open Position Menu\n")
+        builder.append("-- Open Position Menu --\n")
                .append("Insert Asset ID\n")
                .append("(-1 to cancel)\n");
 
@@ -19,7 +19,7 @@ public class BuyMenu implements MainUser
     public void drawPositionType()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Select position type\n")
+        builder.append("-- Select position type --\n")
                .append("1. Long/Buy\n")
                .append("2. Short/Sell\n")
                .append("3. Cancel\n");

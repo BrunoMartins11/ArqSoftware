@@ -12,8 +12,8 @@ public class StocksMenu implements MainUser
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Markets Menu\n")
-                .append("-- Pick the market type --\n")
+        builder.append("-- Markets Menu --\n")
+                .append("Pick the market type\n")
                 .append("1. Commodities\n")
                 .append("2. Coin\n")
                 .append("3. Stock\n")

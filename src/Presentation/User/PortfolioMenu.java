@@ -10,11 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 public class PortfolioMenu implements MainUser {
+
     @Override
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Portfolio Menu\n")
+        builder.append("-- Portfolio Menu --\n")
                .append("CFD ID | AssetID - Asset Company | Date | Position | Buy Value / Quantity | TP Value | SL Value\n");
 
         System.out.println(builder.toString());

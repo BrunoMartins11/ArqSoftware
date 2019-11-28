@@ -10,8 +10,8 @@ public class Stocks implements MainUser {
     {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("Market Menu\n")
-               .append("-- Pick Market Type --\n")
+        builder.append("-- Market Menu --\n")
+               .append("Pick Market Type\n")
                .append("1. Commodities\n")
                .append("2. Coin\n")
                .append("3. Stock\n")

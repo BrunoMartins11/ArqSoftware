@@ -8,7 +8,7 @@ public class BugReport implements MainUser {
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Bug Menu\n")
+        builder.append("-- Bug Menu --\n")
                .append("1. Report new Bug\n")
                .append("2. Return\n");
 

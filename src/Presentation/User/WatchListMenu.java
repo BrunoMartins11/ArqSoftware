@@ -10,7 +10,7 @@ public class WatchListMenu implements MainUser {
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("WatchList Menu\n");
+        builder.append("-- WatchList Menu --\n");
 
         System.out.println(builder);
     }
@@ -19,8 +19,7 @@ public class WatchListMenu implements MainUser {
     {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("WatchList\n")
-                .append("NR. | Item | Value \n");
+        builder.append("NR. | Item | Value \n");
 
 
         for(Asset a : assets)

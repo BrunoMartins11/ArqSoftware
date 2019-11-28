@@ -9,7 +9,7 @@ public class PositionManage implements MainUser
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Manage Position Menu\n")
+        builder.append("-- Manage Position Menu --\n")
                .append("Insert CFD ID\n")
                .append("(-1 to cancel)\n");
 

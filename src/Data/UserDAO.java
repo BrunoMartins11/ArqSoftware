@@ -77,13 +77,13 @@ public class UserDAO implements DAO<User> {
                 pStm.setString(4, user.getPassword());
                 if(user instanceof Investor){
                     Investor i = (Investor) user;
-                    pStm.setInt(5,0);
+                    pStm.setInt(5,1);
                     pStm.setDouble(6, i.getCredit());
                     pStm.setInt(7, i.getPortfolioId());
                 } else{
                     if(user instanceof Admin) {
                         Admin a = (Admin) user;
-                        pStm.setInt(5, 1);
+                        pStm.setInt(5, 0);
                         pStm.setDouble(6, 0);
                         pStm.setInt(7, 0);
                     }

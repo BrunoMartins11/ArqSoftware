@@ -151,7 +151,7 @@ public class ESSTrading {
 			((Investor) u).takeCredit(value);
 	}
 
-	public boolean checkUserCredit(int userID, int assetID, double numberOfAssets)
+	public boolean checkUserCredit(int userID, int assetID, double numberOfAssets, int positionType)
 	{
 		boolean ret = false;
 
@@ -165,9 +165,16 @@ public class ESSTrading {
 			credit = i.getCredit();
 			if(credit >= buyValue)
 			{
-				ret = true;
-				i = (Investor) users.get(userID);
-				i.takeCredit(buyValue);
+				if(positionType == 1)
+				{
+					ret = true;
+					i = (Investor) users.get(userID);
+					i.takeCredit(buyValue);
+				}
+				else
+				{
+					ret = checkSellPosition(userID,assetID);
+				}
 			}
 		}
 
@@ -227,6 +234,19 @@ public class ESSTrading {
 	}
 
 	// CLOSE POSITION //
+	public boolean checkSellPosition(int userID, int assetID)
+	{
+		boolean ret = false;
+		Investor inv = (Investor) users.get(userID);
+
+		if(assets.get(assetID).getValue() <= inv.getCredit())
+		{
+			ret = true;
+		}
+
+		return ret;
+	}
+
 	public void closePosition(int userID, int cfdToClose)
 	{
 		CFD c = cfds.get(cfdToClose);

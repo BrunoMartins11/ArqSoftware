@@ -8,7 +8,7 @@ public class MainMenu implements MainUser
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Main Menu\n")
+        builder.append("-- Main Menu --\n")
                .append("1. See Markets\n")
                .append("2. See WatchList\n")
                .append("3. See Portfolio\n")

@@ -8,8 +8,7 @@ public class Login implements MainUser
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Login Menu\n")
-               .append("\n")
+        builder.append("-- Login Menu --\n")
                .append("Insert your Email");
 
         System.out.println(builder);

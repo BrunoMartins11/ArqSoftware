@@ -204,6 +204,7 @@ public class UserFacade
 
     private void openWatchListMenu()
     {
+        watchListMenu.drawMainMenu();
         watchListMenu.drawWatchListMenu(essTrading.getInvestorWatchList(userID));
         int in = input.getIntInput();
         processWatchListInput(in);
@@ -356,8 +357,10 @@ public class UserFacade
         double tp = 0;
         double sl = 0;
         System.out.println("Insert the amount of assets\n");
+
         double numberOfAssets = input.getDoubleInput();
-        boolean userhasMoney = essTrading.checkUserCredit(userID, assetID, numberOfAssets);
+        boolean userhasMoney = essTrading.checkUserCredit(userID, assetID, numberOfAssets, positionType);
+
         if(userhasMoney)
         {
             buyMenu.drawSLTPValues();
