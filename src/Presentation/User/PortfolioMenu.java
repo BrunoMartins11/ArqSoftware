@@ -42,7 +42,7 @@ public class PortfolioMenu implements MainUser {
         drawOptionsMenu();
     }
 
-    private void drawOptionsMenu()
+    public void drawOptionsMenu()
     {
         StringBuilder builder = new StringBuilder();
         builder.append("------------------------------------------------\n")
@@ -51,6 +51,17 @@ public class PortfolioMenu implements MainUser {
                 .append("3. Ver Total Investido\n")
                 .append("4. Ver Saldo\n")
                 .append("5. Regressar\n");
+
+        System.out.println(builder.toString());
+    }
+
+    public void drawOptionsTwoMenu()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("------------------------------------------------\n")
+                .append("1. Ver Total Investido\n")
+                .append("2. Ver Saldo\n")
+                .append("3. Regressar\n");
 
         System.out.println(builder.toString());
     }

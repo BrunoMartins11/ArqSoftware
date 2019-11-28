@@ -107,9 +107,20 @@ public class UserFacade
     private void openPortfolioMenu()
     {
         this.portfolioMenu.drawMainMenu();
-        this.portfolioMenu.drawSecondMenu(essTrading.getPortfolio(userID), essTrading.getAssets()); //TODO ESTOURA
-        int in = input.getIntInput();
-        processPortfolioInput(in);
+        int in = 0;
+        List<CFD> cfdList = essTrading.getPortfolio(userID);
+        if(cfdList.size() > 0)
+        {
+            this.portfolioMenu.drawSecondMenu(cfdList, essTrading.getAssets()); //TODO ESTOURA
+            in = input.getIntInput();
+            processPortfolioInput(in);
+        }
+        else
+        {
+            this.portfolioMenu.drawOptionsTwoMenu();
+            in = input.getIntInput();
+            processPortFolioAlternative(in);
+        }
     }
 
     private void processPortfolioInput(int in)
@@ -126,6 +137,22 @@ public class UserFacade
                 openTotalInvested();
                 break;
             case 4:
+                openCreditMenu();
+                break;
+            default:
+                openStartUpMenu();
+                break;
+        }
+    }
+
+    private void processPortFolioAlternative(int in)
+    {
+        switch(in)
+        {
+            case 1:
+                openTotalInvested();
+                break;
+            case 2:
                 openCreditMenu();
                 break;
             default:
