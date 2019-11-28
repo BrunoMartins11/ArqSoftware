@@ -45,6 +45,10 @@ public class ESSTrading {
 		bugs = (new BugDAO()).getAll();
 
 		bw = new BackgroundWorker(assets);
+		for (Asset a : this.assets.values())
+		{
+			bw.addObserver(a);
+		}
 		Thread t = new Thread(bw);
 		t.start();
 	}

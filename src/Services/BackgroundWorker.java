@@ -2,6 +2,7 @@ package Services;
 
 import BusinessModel.Assets.Asset;
 import BusinessModel.Assets.AssetType;
+import BusinessModel.Observer;
 import BusinessModel.Subscriber;
 import com.intrinio.api.SecurityApi;
 import com.intrinio.invoker.ApiClient;
@@ -11,25 +12,31 @@ import com.intrinio.invoker.auth.ApiKeyAuth;
 import com.intrinio.models.RealtimeStockPrice;
 import javafx.util.Pair;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class BackgroundWorker implements Subscriber, Runnable {
-    Map<String, Asset> assets;
+    Map<String, Observer> assets;
     List<Pair<String, Double>> names;
     boolean exit;
 
     public BackgroundWorker(Map<Integer, Asset> assetsmap) {
         assets = new HashMap<>();
-        for (Asset a:  assetsmap.values()) {
-            assets.put(a.getCompany(), a);
-        };
+
         this.names = new ArrayList<>();
         this.exit = false;
     }
 
     @Override
-    public void addObserver(Asset a) {
-        assets.put(a.getCompany(), a);
+    public void addObserver(Observer o) {
+
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+
     }
 
     @Override
@@ -48,14 +55,19 @@ public class BackgroundWorker implements Subscriber, Runnable {
         try {
             while (!exit) {
                 names = new ArrayList<>();
-                for (Asset a : assets.values()) {
-                    if(a.getType() == AssetType.STOCK)
+                for (Observer o : assets.values()) {
+                    if(o instanceof Asset)
                     {
-                        SecurityApi securityApi = new SecurityApi();
-                        RealtimeStockPrice result = securityApi.getSecurityRealtimePrice(a.getCompany(), null);
-                        if(result.getLastPrice().doubleValue() != a.getValue()){
-                            names.add(new Pair<>(a.getCompany(), result.getLastPrice().doubleValue()));
-                     }
+                        Asset a = (Asset) o;
+                        if(a.getType() == AssetType.STOCK)
+                        {
+                            SecurityApi securityApi = new SecurityApi();
+                            RealtimeStockPrice result = securityApi.getSecurityRealtimePrice(a.getCompany(), null);
+                            if(result.getLastPrice().doubleValue() != a.getValue()){
+                                names.add(new Pair<>(a.getCompany(), result.getLastPrice().doubleValue()));
+                                System.out.println("Value Update: " + result.getLastPrice().doubleValue());
+                            }
+                        }
                     }
                 }
                 notifyObservers();
