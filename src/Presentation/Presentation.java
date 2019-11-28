@@ -59,7 +59,7 @@ public class Presentation {
         sharedFacade.openLoginMenu();
         email = sharedFacade.getEmailInput();
 
-        System.out.println("Insira a Password\n");
+        System.out.println("Insert your Password\n");
         password = sharedFacade.getPasswordInput();
         User u;
 
@@ -78,7 +78,7 @@ public class Presentation {
 
         } else // authentication failed
         {
-            System.out.println("Email ou Password Errados\n");
+            System.out.println("Wrong Username or Password\n");
             openStartUpMenu();
         }
     }
@@ -90,7 +90,7 @@ public class Presentation {
 
         sharedFacade.openRegistrationMenu();
         emailInput = sharedFacade.getEmailInput();
-        System.out.println("Insira uma Password\n");
+        System.out.println("Insert your Password\n");
         passwordInput = sharedFacade.getPasswordInput();
 
         saveNewUser(emailInput, passwordInput);
@@ -99,9 +99,9 @@ public class Presentation {
     private void saveNewUser(String emailInput, String passwordInput) {
         if (essTrading.saveNewUser(emailInput,passwordInput))
         {
-            System.out.println("Registado com Sucesso!\n");
+            System.out.println("Registed with Success!\n");
         } else {
-            System.out.println("Utilizador não registado\n");
+            System.out.println("User not registred\n");
         }
         openStartUpMenu();
     }

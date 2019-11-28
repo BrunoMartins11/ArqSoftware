@@ -2,7 +2,7 @@ package Presentation.User;
 import BusinessModel.Assets.Asset;
 import BusinessModel.ESSTrading;
 import BusinessModel.Trading.CFD;
-import Presentation.Shared.InputInsert;
+import Presentation.InputInsert;
 
 import java.util.*;
 
@@ -56,7 +56,7 @@ public class UserFacade
         }
         else
         {
-            System.out.println("Não está Autenticado!");
+            System.out.println("User not Authenticated!\n");
         }
     }
 
@@ -139,6 +139,9 @@ public class UserFacade
             case 4:
                 openCreditMenu();
                 break;
+            case 5:
+                openStartUpMenu();
+                break;
             default:
                 openStartUpMenu();
                 break;
@@ -164,7 +167,7 @@ public class UserFacade
     private void openCreditMenu()
     {
         double credit = essTrading.getUserCredit(userID);
-        System.out.println("Crédito: " + credit + "\n");
+        System.out.println("Credit: " + credit + "\n");
         openPortfolioMenu();
     }
 
@@ -280,7 +283,7 @@ public class UserFacade
                 openStartUpMenu();
                 break;
             default:
-                System.out.println("Input Errado\n");
+                System.out.println("Wrong Input\n");
                 openStocksMenu();
                 break;
         }
@@ -326,11 +329,18 @@ public class UserFacade
             {
                 buyMenu.drawPositionType();
                 positionType = input.getIntInput();
-                processBuyInput(itemNumber,positionType);
+                if(positionType != 3)
+                {
+                    processBuyInput(itemNumber,positionType);
+                }
+                else
+                {
+                    openStartUpMenu();
+                }
             }
             else
             {
-                System.out.println("Item não se encontra na lista!");
+                System.out.println("Item not Listed!");
                 openBuyMenu(assetList);
             }
         }
@@ -345,7 +355,7 @@ public class UserFacade
     {
         double tp = 0;
         double sl = 0;
-        System.out.println("Indique o número de ativos a adquirir\n");
+        System.out.println("Insert the amount of assets\n");
         double numberOfAssets = input.getDoubleInput();
         boolean userhasMoney = essTrading.checkUserCredit(userID, assetID, numberOfAssets);
         if(userhasMoney)

@@ -9,9 +9,9 @@ public class BuyMenu implements MainUser
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Menu Abrir Posição\n")
-               .append("Indique o Número do Item\n")
-               .append("(-1 para cancelar)\n");
+        builder.append("Open Position Menu\n")
+               .append("Insert Asset ID\n")
+               .append("(-1 to cancel)\n");
 
         System.out.println(builder);
     }
@@ -19,42 +19,42 @@ public class BuyMenu implements MainUser
     public void drawPositionType()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Selecione o tipo de Posição\n")
-               .append("1. Compra\n")
-               .append("2. Venda\n")
-               .append("3. Cancelar\n");
+        builder.append("Select position type\n")
+               .append("1. Long/Buy\n")
+               .append("2. Short/Sell\n")
+               .append("3. Cancel\n");
         System.out.println(builder);
     }
 
     public void drawSLTPValues()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Menu Abrir Posição\n")
-               .append("Deseja definir valores TP/SL? [Y/N]\n");
+        builder.append("Open Position Menu\n")
+               .append("Do you wish to define TP/SL? [Y/N]\n");
         System.out.println(builder);
     }
 
     public void tpValueDraw()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Insira limite TP (-1 se não desejar definir)\n");
+        builder.append("Insert TP limit (-1 to ignore)\n");
         System.out.println(builder);
     }
 
     public void slValueDraw()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Insira limite SL (-1 se não desejar definir)\n");
+        builder.append("Insert SL limit (-1 to ignore)\n");
         System.out.println(builder);
     }
 
     public void printSuccessfulOperation()
     {
-        System.out.println("Operação Efectuada com sucesso\n");
+        System.out.println("Successful Operation\n");
     }
 
     public void printNoCredit()
     {
-        System.out.println("Não tem crédito suficiente para a operação\n");
+        System.out.println("You do not have enough credit!!\n");
     }
 }

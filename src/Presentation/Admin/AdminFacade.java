@@ -2,7 +2,7 @@ package Presentation.Admin;
 
 import BusinessModel.ESSTrading;
 import BusinessModel.Report.Bug;
-import Presentation.Shared.InputInsert;
+import Presentation.InputInsert;
 import Presentation.Shared.SharedFacade;
 
 import java.util.List;

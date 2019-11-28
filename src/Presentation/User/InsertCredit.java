@@ -8,8 +8,8 @@ public class InsertCredit implements MainUser
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Menu Inserir Crétido\n")
-               .append("Insira o montante a adicionar:\n");
+        builder.append("Insert Credit\n")
+               .append("Insert the amount to add:\n");
 
         System.out.println(builder);
     }

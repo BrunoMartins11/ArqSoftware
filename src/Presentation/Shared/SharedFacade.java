@@ -2,6 +2,7 @@ package Presentation.Shared;
 
 import BusinessModel.Assets.Asset;
 import BusinessModel.ESSTrading;
+import Presentation.InputInsert;
 
 import java.util.ArrayList;
 import java.util.Collection;

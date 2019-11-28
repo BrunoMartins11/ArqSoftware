@@ -12,12 +12,12 @@ public class StocksMenu implements MainUser
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Menu Ver Mercados\n")
-                .append("-- Escolha o tipo de Mercado --\n")
+        builder.append("Markets Menu\n")
+                .append("-- Pick the market type --\n")
                 .append("1. Commodities\n")
-                .append("2. Moeda\n")
+                .append("2. Coin\n")
                 .append("3. Stock\n")
-                .append("4. Voltar ao Menu Iniciar\n");
+                .append("4. Return\n");
         System.out.println(builder);
     }
 
@@ -25,7 +25,7 @@ public class StocksMenu implements MainUser
     {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("Ver Mercados - ")
+        builder.append("Market - ")
                 .append(type)
                 .append("\n")
                 .append("NR. | Item | Value \n");
@@ -37,9 +37,9 @@ public class StocksMenu implements MainUser
         }
 
         builder.append("------------------------------------------------\n")
-                .append("1. Abrir Posição\n")
-                .append("2. Adicionar Item à WatchList\n")
-                .append("3. Regressar\n");
+                .append("1. Open Position\n")
+                .append("2. Add Item to WatchList\n")
+                .append("3. Return\n");
 
         System.out.println(builder);
     }
@@ -59,6 +59,6 @@ public class StocksMenu implements MainUser
     }
 
     public void printAuthenticationFault() {
-        System.out.println("Utilizador não autenticado\n");
+        System.out.println("User not Authenticated\n");
     }
 }

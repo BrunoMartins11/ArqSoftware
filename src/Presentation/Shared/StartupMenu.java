@@ -8,11 +8,11 @@ public class StartupMenu implements MainUser
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Menu Iniciar\n")
-                .append("1. Ver Mercados\n")
-                .append("2. Efectuar Login\n")
-                .append("3. Registar\n")
-                .append("4. Sair\n");
+        builder.append("ESS TRADING\n")
+                .append("1. See Markets\n")
+                .append("2. Login\n")
+                .append("3. Register\n")
+                .append("4. Leave\n");
 
         System.out.println(builder);
     }

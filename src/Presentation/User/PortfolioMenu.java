@@ -14,7 +14,7 @@ public class PortfolioMenu implements MainUser {
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Menu Ver Portfólio\n")
+        builder.append("Portfolio Menu\n")
                .append("CFD ID | AssetID - Asset Company | Date | Position | Buy Value / Quantity | TP Value | SL Value\n");
 
         System.out.println(builder.toString());
@@ -25,20 +25,23 @@ public class PortfolioMenu implements MainUser {
         StringBuilder builder = new StringBuilder();
         String company = "";
 
-        List<CFD> list = new ArrayList<>();
-        list = cfdList;
-        Map<Integer,Asset> map = new HashMap<>();
-        map = assets;
-
-        if(list.size() > 0 && map.size() > 0)
+        if(cfdList != null)
         {
-            for(CFD a : list)
+            List<CFD> list = new ArrayList<>();
+            list = cfdList;
+            Map<Integer,Asset> map = new HashMap<>();
+            map = assets;
+
+            if(list.size() > 0 && map.size() > 0)
             {
-                company = map.get(a.getAssetID()).getCompany();
-                builder.append(insertItem(a,company));
+                for(CFD a : list)
+                {
+                    company = map.get(a.getAssetID()).getCompany();
+                    builder.append(insertItem(a,company));
+                }
             }
+            System.out.println(builder.toString());
         }
-        System.out.println(builder.toString());
         drawOptionsMenu();
     }
 
@@ -46,11 +49,11 @@ public class PortfolioMenu implements MainUser {
     {
         StringBuilder builder = new StringBuilder();
         builder.append("------------------------------------------------\n")
-                .append("1. Fechar Posição\n")
-                .append("2. Gerir Posição (Redefinir valores TP/SL)\n")
-                .append("3. Ver Total Investido\n")
-                .append("4. Ver Saldo\n")
-                .append("5. Regressar\n");
+                .append("1. Close Position\n")
+                .append("2. Manage Position (Reset TP/SL values)\n")
+                .append("3. See Total Invested\n")
+                .append("4. Credit Amount\n")
+                .append("5. Return\n");
 
         System.out.println(builder.toString());
     }
@@ -59,9 +62,9 @@ public class PortfolioMenu implements MainUser {
     {
         StringBuilder builder = new StringBuilder();
         builder.append("------------------------------------------------\n")
-                .append("1. Ver Total Investido\n")
-                .append("2. Ver Saldo\n")
-                .append("3. Regressar\n");
+                .append("1. See Total Invested\n")
+                .append("2. Credit Amount\n")
+                .append("3. Return\n");
 
         System.out.println(builder.toString());
     }

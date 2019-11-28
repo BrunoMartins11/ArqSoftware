@@ -7,8 +7,8 @@ public class WithdrawCredit implements MainUser {
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Menu Retirar Crédito\n")
-               .append("Insira o montante a retirar:\n");
+        builder.append("Withdraw Credit\n")
+               .append("Insert the amount to withdraw:\n");
 
         System.out.println(builder);
     }

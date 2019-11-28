@@ -10,7 +10,7 @@ public class WatchListMenu implements MainUser {
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Menu WatchList\n");
+        builder.append("WatchList Menu\n");
 
         System.out.println(builder);
     }
@@ -29,9 +29,9 @@ public class WatchListMenu implements MainUser {
         }
 
         builder.append("------------------------------------------------\n")
-                .append("1. Abrir Posição\n")
-                .append("2. Remover Item da WatchList\n")
-                .append("3. Regressar\n");
+                .append("1. Open Position\n")
+                .append("2. Remove item from WatchList\n")
+                .append("3. Return\n");
 
         System.out.println(builder);
     }
@@ -52,11 +52,11 @@ public class WatchListMenu implements MainUser {
 
     public void drawRemoveItemMenu()
     {
-        System.out.println("Insira o ID do item a remover da WatchList:\n");
+        System.out.println("Insert the Asset ID to remove (-1 to cancel):\n");
     }
 
     public void addToWatchListMenu()
     {
-        System.out.println("Insira o ID do item a adicionar à WatchList: \n (-1 para cancelar)\n");
+        System.out.println("Insert the Asset ID to add: \n (-1 to cancel)\n");
     }
 }

@@ -9,10 +9,10 @@ public class MainMenu implements MainUser
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Menu Principal\n")
-                .append("1. Ver Mercados\n")
-                .append("2. Listar Bugs\n")
-                .append("3. Sair\n");
+        builder.append("Admin Menu\n")
+                .append("1. See Markets\n")
+                .append("2. List Bugs\n")
+                .append("3. Leave\n");
 
         System.out.println(builder);
     }

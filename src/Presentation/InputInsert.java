@@ -1,4 +1,4 @@
-package Presentation.Shared;
+package Presentation;
 
 import java.util.Scanner;
 
@@ -9,7 +9,6 @@ public class InputInsert
         Scanner scan = new Scanner(System.in);
         return scan.nextInt();
     }
-
 
     public double getDoubleInput()
     {

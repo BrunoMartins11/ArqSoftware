@@ -9,7 +9,7 @@ public class Registration implements MainUser {
     {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("Menu Registar\n").append("Insira o Email\n");
+        builder.append("Register Menu\n").append("Insert your email\n");
         System.out.println(builder);
     }
 }

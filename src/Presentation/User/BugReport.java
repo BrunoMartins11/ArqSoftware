@@ -8,9 +8,9 @@ public class BugReport implements MainUser {
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Menu de Bugs\n")
-               .append("1. Reportar novo Bug\n")
-               .append("2. Regressar\n");
+        builder.append("Bug Menu\n")
+               .append("1. Report new Bug\n")
+               .append("2. Return\n");
 
         System.out.println(builder);
     }
@@ -18,6 +18,6 @@ public class BugReport implements MainUser {
     public void drawSecondMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("Descreva o Bug (Carregue enter para terminar)\n");
+        builder.append("Describe the bug (Press enter to finish)\n");
     }
 }
