@@ -1,8 +1,5 @@
 package BusinessModel.Trading;
 
-import BusinessModel.Assets.*;
-import Data.CFDdao;
-
 import java.time.LocalDateTime;
 
 public class CFD {

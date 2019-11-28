@@ -36,7 +36,6 @@ public class BackgroundWorker implements Subscriber, Runnable {
     public void notifyObservers() {
         for (Pair name: names) {
             assets.get(name.getKey()).update((Double) name.getValue());
-            System.out.println(name.getValue());
         }
     }
 

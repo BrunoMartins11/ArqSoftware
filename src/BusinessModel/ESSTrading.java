@@ -49,11 +49,66 @@ public class ESSTrading {
 		t.start();
 	}
 
-	// GETS USERS
+	// GETS
 	public Map<Integer, User> getUsers() {
 		return this.users;
 	}
+	public Map<Integer, CFD> getCfds() {
+		return  this.cfds;
+	}
+	public List<Bug> getBugs() {
+		return this.bugs;
+	}
+	public Map<Integer, Asset> getAssets() {
+		return  this.assets;
+	}
 
+	public int getUserID(String email)
+	{
+		int id = -1;
+		for(User u : users.values())
+		{
+			if(u.getEmail().equals(email))
+			{
+				id = u.getId();
+			}
+		}
+		return id;
+	}
+
+	public List<CFD> getPortfolio(int userID)
+	{
+		User u = users.get(userID);
+		List<CFD> cfdList = new ArrayList<>();
+		if( u instanceof Investor)
+		{
+			Investor investor = (Investor) u;
+			List<Integer> cfdIdsList = investor.getPortfolio().getCFDs();
+			for(int i : cfdIdsList)
+			{
+				cfdList.add(cfds.get(i));
+			}
+		}
+		return cfdList;
+	}
+
+	// GET ASSETS
+	public Map<Integer,Asset> getAssetsByType(String type)
+	{
+		Map<Integer,Asset> ret = new HashMap<>();
+
+		for(Asset a : assets.values())
+		{
+			if(a.getType().equals(AssetType.valueOf(type)))
+			{
+				ret.put(a.getId(),a);
+			}
+		}
+
+		return ret;
+	}
+
+	// USER CREDIT
 	public double getUserCredit(int userID)
 	{
 		User u = users.get(userID);
@@ -70,108 +125,18 @@ public class ESSTrading {
 	{
 		User u = users.get(userID);
 		double ret = 0;
+		List<Integer> ids;
 		if(u instanceof Investor)
 		{
 			Investor investor = (Investor) u;
-			ret = investor.allInvested();
-		}
-		return ret;
-	}
-
-	// GETS ASSETS
-	public Map<Integer, Asset> getAssets() {
-		return  this.assets;
-	}
-
-	public Map<Integer,Asset> getAssetsByType(String type)
-	{
-		Map<Integer,Asset> ret = new HashMap<>();
-
-		for(Asset a : assets.values())
-		{
-			if(a.getType().equals(AssetType.valueOf(type)))
+			ids = investor.getPortfolio().getCFDs();
+			for(Integer i : ids)
 			{
-				ret.put(a.getId(),a);
+				CFD c = this.cfds.get(i);
+				ret += (c.getPriceAcquisition()*c.getQuantity());
 			}
 		}
-
 		return ret;
-	}
-
-	// GETS CFD'S
-	public Map<Integer, CFD> getCfds() {
-		return  this.cfds;
-	}
-
-	// GETS BUG'S
-	public List<Bug> getBugs() {
-		return this.bugs;
-	}
-
-	public User loginUser(String email, String password){
-	    User user = null;
-		for (User u: users.values()) {
-			if(u.getEmail().equals(email) && u.getPassword().equals(password))
-				user = u;
-		}
-		return user;
-	}
-
-	public boolean saveNewUser(String email, String password){
-		double credit = 0;
-		Portfolio p = new Portfolio();
-		User u = new Investor(users.size()+1, email, email, password, p, credit);
-		users.put(users.size()+1, u);
-		UserDAO dao = new UserDAO();
-		dao.save(u);
-		return true;
-	}
-
-	public int getUserID(String email)
-	{
-		//TODO - CHECK FUNCTION
-		int id = -1;
-		for(User u : users.values())
-		{
-			if(u.getEmail().equals(email))
-			{
-				id = u.getId();
-			}
-		}
-		return id;
-	}
-
-	// positionType: 1 - Compra; 2 - Venda
-	public void createCFD(int userID, int positionType, int assetID, double numberOfAssets, double tp, double sl)
-	{
-		// TODO - CHECK FUNCTION
-		int id = cfds.size() + 1;
-		Position pos = getPositionType(positionType);
-		double assetPrice = assets.get(assetID).getValue();
-
-		CFD cfd = new CFD(id,tp,sl,assetPrice,numberOfAssets,LocalDateTime.now(),pos,assetID);
-		int portfolioID = ((Investor) users.get(userID)).getPortfolioId();
-		((Investor) users.get(userID)).getPortfolio().addCFD(id);
-		openCFD(cfd, portfolioID);
-	}
-
-	private Position getPositionType(int input)
-	{
-		Position pos;
-		if(input == 1)
-		{
-			pos = Position.LONG;
-		}
-		else
-		{
-			pos = Position.SHORT;
-		}
-		return pos;
-	}
-
-	public void openCFD(CFD cfd, int portfolioId){
-		cfds.put(cfd.getId(), cfd);
-		(new CFDdao()).saveToPortfolio(cfd, portfolioId);
 	}
 
 	public void insertCredit(int userID, Double value){
@@ -186,46 +151,8 @@ public class ESSTrading {
 			((Investor) u).takeCredit(value);
 	}
 
-	public void closePosition(int userID, int cfdToClose)
-	{ //TODO CHECK
-		Investor inv = (Investor) users.get(userID);
-		CFD c = cfds.get(cfdToClose);
-		double credit = 0;
-		if(c.getPosition().equals(Position.LONG))
-		{
-			credit = c.getPriceAcquisition()*c.getQuantity() - assets.get(cfdToClose).getValue();
-			insertCredit(userID,credit);
-		}
-		else
-		{
-			credit = assets.get(cfdToClose).getValue() - c.getPriceAcquisition()*c.getQuantity();
-			insertCredit(userID,credit);
-		}
-		closeCFD(c);
-	}
-
-	public void closeCFD(CFD cfd){
-		(new CFDdao()).delete(cfd);
-		cfds.remove(cfd.getId());
-	}
-
-	public List<Asset> getInvestorWatchList(int id){
-		Investor investor = (Investor) users.get(id);
-		List<Asset> watchList = new ArrayList<>();
-		for (Integer i: investor.getPortfolio().getWatchList()) {
-			watchList.add(assets.get(i));
-		}
-		return watchList;
-	}
-
-	public void reportBug(int idUser, String text){
-		Bug b;
-		bugs.add(b = (new Bug(bugs.size()+1, text, LocalDateTime.now(), idUser)));
-		(new BugDAO()).save(b);
-	}
-
 	public boolean checkUserCredit(int userID, int assetID, double numberOfAssets)
-	{ // TODO CHECK
+	{
 		boolean ret = false;
 
 		double credit = 0;
@@ -247,24 +174,95 @@ public class ESSTrading {
 		return ret;
 	}
 
-	public List<CFD> getPortfolio(int userID)
-	{ // TODO CHECK
-		User u = users.get(userID);
-		List<CFD> cfdList = new ArrayList<>();
-		if( u instanceof Investor)
-		{
-			Investor investor = (Investor) u;
-			List<Integer> cfdIdsList = investor.getPortfolio().getCFDs();
-			for(int i : cfdIdsList)
-			{
-				cfdList.add(cfds.get(i));
-			}
+	// LOGIN REGISTRATION STUFF
+	public User loginUser(String email, String password){
+	    User user = null;
+		for (User u: users.values()) {
+			if(u.getEmail().equals(email) && u.getPassword().equals(password))
+				user = u;
 		}
-		return cfdList;
+		return user;
+	}
+
+	public boolean saveNewUser(String email, String password){
+		double credit = 0;
+		Portfolio p = new Portfolio();
+		User u = new Investor(users.size()+1, email, email, password, p, credit);
+		users.put(users.size()+1, u);
+		UserDAO dao = new UserDAO();
+		dao.save(u);
+		return true;
+	}
+
+	// CFD
+	public void createCFD(int userID, int positionType, int assetID, double numberOfAssets, double tp, double sl)
+	{
+		int id = cfds.size() + 1;
+		Position pos = getPositionType(positionType);
+		double assetPrice = assets.get(assetID).getValue();
+
+		CFD cfd = new CFD(id,tp,sl,assetPrice,numberOfAssets,LocalDateTime.now(),pos,assetID);
+		int portfolioID = ((Investor) users.get(userID)).getPortfolioId();
+		((Investor) users.get(userID)).getPortfolio().addCFD(id);
+		openCFD(cfd, portfolioID);
+	}
+
+	private Position getPositionType(int input)
+	{
+		Position pos;
+		if(input == 1)
+		{
+			pos = Position.LONG; // COMPRA
+		}
+		else
+		{
+			pos = Position.SHORT; // VENDA
+		}
+		return pos;
+	}
+
+	public void openCFD(CFD cfd, int portfolioId){
+		cfds.put(cfd.getId(), cfd);
+		(new CFDdao()).saveToPortfolio(cfd, portfolioId);
+	}
+
+	// CLOSE POSITION //
+	public void closePosition(int userID, int cfdToClose)
+	{
+		CFD c = cfds.get(cfdToClose);
+		double credit = 0;
+		double aquisitionPrice = c.getPriceAcquisition()*c.getQuantity();
+
+		if(c.getPosition().equals(Position.LONG))
+		{
+			credit = aquisitionPrice - assets.get(cfdToClose).getValue();
+			insertCredit(userID,credit);
+		}
+		else
+		{
+			credit = assets.get(cfdToClose).getValue() - aquisitionPrice;
+			insertCredit(userID,credit);
+		}
+		closeCFD(c);
+	}
+
+	public void closeCFD(CFD cfd){
+		(new CFDdao()).delete(cfd);
+		cfds.remove(cfd.getId());
+	}
+
+	// WATCHLIST //
+	public List<Asset> getInvestorWatchList(int id){
+		Investor investor = (Investor) users.get(id);
+		List<Asset> watchList = new ArrayList<>();
+		for (Integer i: investor.getPortfolio().getWatchList()) {
+			watchList.add(assets.get(i));
+		}
+		return watchList;
 	}
 
 	public void removeItemFromWatchList(int userID, int assetId)
-	{ // TODO CHECK
+	{
 		Investor inv = (Investor) users.get(userID);
 		inv.removeWatchList(assetId);
 	}
@@ -274,6 +272,14 @@ public class ESSTrading {
 		inv.addToWatchList(assetID);
 	}
 
+	// BUG REPORT
+	public void reportBug(int idUser, String text){
+		Bug b;
+		bugs.add(b = (new Bug(bugs.size()+1, text, LocalDateTime.now(), idUser)));
+		(new BugDAO()).save(b);
+	}
+
+	// THREAD MANAGE //
 	public void stopThread()
 	{
 		bw.stop();

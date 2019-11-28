@@ -1,8 +1,6 @@
 package BusinessModel.User;
 
 import BusinessModel.Assets.Asset;
-import BusinessModel.Report.Bug;
-
 import java.util.List;
 
 public class Admin extends User {

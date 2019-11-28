@@ -19,6 +19,9 @@ public class AdminFacade
     public AdminFacade(SharedFacade sharedFacade)
     {
         this.sharedFacade = sharedFacade;
+        this.mainMenu = new MainMenu();
+        this.input = new InputInsert();
+        this.authenticated = false;
     }
 
     public void setEssTrading(ESSTrading ess)
@@ -26,27 +29,51 @@ public class AdminFacade
         essTrading = ess;
     }
 
-    public void openMainMenu()
+    public void openMainMenu() {
+        mainMenu.drawMainMenu();
+
+        int in = this.input.getIntInput();
+        processInput(in);
+    }
+
+    private void processInput(int in)
     {
-        mainMenu = new MainMenu();
-        mainMenu.drawMainMenu();
-        input = new InputInsert();
-        int scanned = input.getIntInput();
-        if(scanned == 1){
-            sharedFacade.openStocksMenu();
+        switch (in)
+        {
+            case 1:
+                sharedFacade.openStocksMenu();
+                openMainMenu();
+                break;
+            case 2:
+                openBugsMenu();
+                break;
+            case 3:
+                exit();
+                break;
+
         }
-        if(scanned == 2) {
-            List<Bug> bugs= essTrading.getBugs();
-            for (Bug b: bugs) {
-                System.out.println(b.getId() + ". " + b.getError());
-            }
+    }
+
+    private void openBugsMenu()
+    {
+        List<Bug> bugs= essTrading.getBugs();
+        for (Bug b: bugs) {
+            System.out.println(b.getId() + ". " + b.getError());
         }
-        mainMenu.drawMainMenu();
+
+        openMainMenu();
     }
 
     public void setAuthentication(boolean b, int userID)
     {
         this.authenticated = b;
         this.userID = userID;
+    }
+
+    private void exit()
+    {
+        this.authenticated = false;
+        this.userID = -1;
+        essTrading.stopThread();
     }
 }

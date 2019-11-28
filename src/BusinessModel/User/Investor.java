@@ -1,10 +1,8 @@
 package BusinessModel.User;
 
-import BusinessModel.Report.Bug;
 import BusinessModel.Trading.*;
 import java.util.*;
 import BusinessModel.Assets.*;
-import Data.BugDAO;
 import Data.UserDAO;
 
 public class Investor extends User {
@@ -56,12 +54,12 @@ public class Investor extends User {
 	}
 
 	public void insertCredit(Double value){
-		credit += value;
+		this.credit += value;
 		(new UserDAO()).update(this);
 	}
 
 	public void takeCredit(Double value){
-		credit -= value;
+		this.credit -= value;
 		(new UserDAO()).update(this);
 	}
 

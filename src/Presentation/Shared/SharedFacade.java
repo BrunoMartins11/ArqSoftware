@@ -38,32 +38,6 @@ public class SharedFacade
         return option;
     }
 
-    public void mainMenu()
-    {
-        int option;
-        startMenu.drawMainMenu();
-        option = input.getIntInput();
-        processInput(option);
-    }
-
-    private void processInput(int option)
-    {
-        switch (option)
-        {
-            case 1:
-                openStocksMenu();
-                break;
-            case 2:
-                openLoginMenu();
-                break;
-            case 3:
-                openRegistrationMenu();
-                break;
-            case 4:
-                break;
-        }
-    }
-
     // STOCK MENU
     public void openStocksMenu()
     {
@@ -78,22 +52,17 @@ public class SharedFacade
                 stock = "COMMODITY";
                 assets = essTrading.getAssetsByType(stock).values();
                 stocks.drawSecondMenu(assets, stock);
-                mainMenu();
                 break;
             case 2:
                 stock = "COIN";
                 assets = essTrading.getAssetsByType(stock).values();
                 stocks.drawSecondMenu(assets, stock);
-                mainMenu();
                 break;
             case 3:
                 stock = "STOCK";
                 assets = essTrading.getAssetsByType(stock).values();
                 stocks.drawSecondMenu(assets, stock);
-                mainMenu();
                 break;
-            default:
-                mainMenu();
         }
     }
         

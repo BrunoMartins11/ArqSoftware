@@ -23,4 +23,10 @@ public class InputInsert
         Scanner scan = new Scanner(System.in);
         return scan.next();
     }
+
+    public String getLineInput()
+    {
+        Scanner scan = new Scanner(System.in);
+        return scan.nextLine();
+    }
 }

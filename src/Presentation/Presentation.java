@@ -15,7 +15,7 @@ public class Presentation {
 
     public Presentation(ESSTrading ess) {
         sharedFacade = new SharedFacade();
-        userFacade = new UserFacade(sharedFacade);
+        userFacade = new UserFacade();
         adminFacade = new AdminFacade(sharedFacade);
         essTrading = ess;
 
@@ -73,7 +73,6 @@ public class Presentation {
             } else // IS ADMIN
             {
                 adminFacade.setAuthentication(true, userID);
-                adminFacade.setEssTrading(essTrading);
                 adminFacade.openMainMenu();
             }
 

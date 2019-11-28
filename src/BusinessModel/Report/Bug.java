@@ -1,7 +1,5 @@
 package BusinessModel.Report;
 
-import Data.BugDAO;
-
 import java.time.LocalDateTime;
 
 public class Bug {

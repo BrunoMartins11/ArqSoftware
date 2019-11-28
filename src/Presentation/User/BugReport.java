@@ -3,6 +3,7 @@ package Presentation.User;
 import Presentation.MainUser;
 
 public class BugReport implements MainUser {
+
     @Override
     public void drawMainMenu()
     {
