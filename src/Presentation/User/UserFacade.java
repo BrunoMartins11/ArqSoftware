@@ -142,9 +142,6 @@ public class UserFacade implements Observer
             case 4:
                 openCreditMenu();
                 break;
-            case 5:
-                openStartUpMenu();
-                break;
             default:
                 openStartUpMenu();
                 break;
@@ -432,11 +429,18 @@ public class UserFacade implements Observer
 
     @Override
     public void update(int id, Double value) {
-        List<Asset> watchList = essTrading.getInvestorWatchList(userID);
-        for (Asset a : watchList){
-            if(a.getId() == id){
-                System.out.println("--WARNING-- " + a.getCompany() + " changed " + value + "percent!!" + " --");
-                break;
+        List<Asset> watchList = new ArrayList<>();
+        watchList = essTrading.getInvestorWatchList(userID);
+        if(watchList != null)
+        {
+            for (Asset a : watchList){
+                if(a != null) //TODO ADDED
+                {
+                    if(a.getId() == id){
+                        System.out.println("--WARNING-- " + a.getCompany() + " changed " + value + "percent!!" + " --");
+                        break;
+                    }
+                }
             }
         }
     }
