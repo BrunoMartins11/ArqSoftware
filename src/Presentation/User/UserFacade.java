@@ -45,7 +45,6 @@ public class UserFacade implements Observer
     public void setEssTrading(ESSTrading ess)
     {
         this.essTrading = ess;
-        essTrading.getBw().addObserver(this);
     }
 
     public void openStartUpMenu()
@@ -61,6 +60,10 @@ public class UserFacade implements Observer
         {
             System.out.println("-- User not Authenticated! --\n");
         }
+    }
+
+    public void registerObserver(){
+        essTrading.getBw().addObserver(this);
     }
 
     private void processStartUpInput(int input)

@@ -70,6 +70,7 @@ public class Presentation {
             {
                 userFacade.setAuthentication(true, userID);
                 userFacade.openStartUpMenu();
+                userFacade.registerObserver();
             } else // IS ADMIN
             {
                 adminFacade.setAuthentication(true, userID);
