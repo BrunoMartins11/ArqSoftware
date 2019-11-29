@@ -85,4 +85,9 @@ public class SharedFacade
     public String getPasswordInput() {
         return input.getStringInput();
     }
+
+    public void drawPasswordOutput()
+    {
+        this.login.drawPasswordMenu();
+    }
 }

@@ -8,9 +8,8 @@ public class Registration implements MainUser {
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-
-        builder.append("-- Registration Menu --\n")
-               .append("Insert your email\n");
+        builder.append("------------- Registration Menu ----------------\n")
+               .append("-- Insert your email --\n");
 
         System.out.println(builder);
     }

@@ -15,7 +15,7 @@ public class PortfolioMenu implements MainUser {
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("-- Portfolio Menu --\n")
+        builder.append("--------------- Portfolio Menu -----------------\n")
                .append("CFD ID | AssetID - Asset Company | Date | Position | Buy Value / Quantity | TP Value | SL Value\n");
 
         System.out.println(builder.toString());
@@ -57,7 +57,8 @@ public class PortfolioMenu implements MainUser {
                 .append("2. Manage Position (Reset TP/SL values)\n")
                 .append("3. See Total Invested\n")
                 .append("4. Credit Amount\n")
-                .append("5. Return\n");
+                .append("5. Return\n")
+                .append("------------------------------------------------\n");
 
         System.out.println(builder.toString());
     }
@@ -68,7 +69,8 @@ public class PortfolioMenu implements MainUser {
         builder.append("------------------------------------------------\n")
                 .append("1. See Total Invested\n")
                 .append("2. Credit Amount\n")
-                .append("3. Return\n");
+                .append("3. Return\n")
+                .append("------------------------------------------------\n");
 
         System.out.println(builder.toString());
     }

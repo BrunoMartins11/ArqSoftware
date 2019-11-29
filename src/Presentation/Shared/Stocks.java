@@ -15,7 +15,8 @@ public class Stocks implements MainUser {
                .append("1. Commodities\n")
                .append("2. Coin\n")
                .append("3. Stock\n")
-               .append("4. Return\n");
+               .append("4. Return\n")
+               .append("------------------------------------------------\n");
         System.out.println(builder);
     }
 
@@ -24,8 +25,9 @@ public class Stocks implements MainUser {
         StringBuilder builder = new StringBuilder();
         int i = 0;
 
-        builder.append("Market - ")
+        builder.append("-- Market - ")
                .append(type)
+               .append(" --")
                .append("\n")
                .append("NR. | Item | Value \n");
 

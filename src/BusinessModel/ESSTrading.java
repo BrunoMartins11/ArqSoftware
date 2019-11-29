@@ -94,7 +94,10 @@ public class ESSTrading {
 			List<Integer> cfdIdsList = investor.getPortfolio().getCFDs();
 			for(int i : cfdIdsList)
 			{
-				cfdList.add(cfds.get(i));
+				if(cfds.get(i) != null)
+				{
+					cfdList.add(cfds.get(i)); //TODO VALIDATION added
+				}
 			}
 		}
 		return cfdList;
@@ -138,10 +141,16 @@ public class ESSTrading {
 		{
 			Investor investor = (Investor) u;
 			ids = investor.getPortfolio().getCFDs();
-			for(Integer i : ids)
+			if(ids.size() > 0)
 			{
-				CFD c = this.cfds.get(i);
-				ret += (c.getPriceAcquisition()*c.getQuantity());
+				for(Integer i : ids)
+				{
+					CFD c = this.cfds.get(i);
+					if(c != null)
+					{
+						ret += (c.getPriceAcquisition()*c.getQuantity());
+					}
+				}
 			}
 		}
 		return ret;
@@ -284,7 +293,10 @@ public class ESSTrading {
 		Investor investor = (Investor) users.get(id);
 		List<Asset> watchList = new ArrayList<>();
 		for (Integer i: investor.getPortfolio().getWatchList()) {
-			watchList.add(assets.get(i));
+			if(assets.get(i) != null)
+			{
+				watchList.add(assets.get(i)); //TODO ADDED VALIDATION
+			}
 		}
 		return watchList;
 	}

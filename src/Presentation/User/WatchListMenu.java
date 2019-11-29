@@ -10,7 +10,7 @@ public class WatchListMenu implements MainUser {
     public void drawMainMenu()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("-- WatchList Menu --\n");
+        builder.append("---------------- WatchList Menu ----------------\n");
 
         System.out.println(builder);
     }
@@ -30,7 +30,8 @@ public class WatchListMenu implements MainUser {
         builder.append("------------------------------------------------\n")
                 .append("1. Open Position\n")
                 .append("2. Remove item from WatchList\n")
-                .append("3. Return\n");
+                .append("3. Return\n")
+                .append("------------------------------------------------\n");
 
         System.out.println(builder);
     }

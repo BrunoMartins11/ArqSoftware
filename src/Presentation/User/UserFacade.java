@@ -59,7 +59,7 @@ public class UserFacade implements Observer
         }
         else
         {
-            System.out.println("User not Authenticated!\n");
+            System.out.println("-- User not Authenticated! --\n");
         }
     }
 
@@ -170,14 +170,14 @@ public class UserFacade implements Observer
     private void openCreditMenu()
     {
         double credit = essTrading.getUserCredit(userID);
-        System.out.println("Credit: " + credit + "\n");
+        System.out.println("-- CREDIT: " + credit + " --\n");
         openPortfolioMenu();
     }
 
     private void openTotalInvested()
     {
         double invested = essTrading.getTotalInvestedByUser(userID);
-        System.out.println("Total Invested: "+invested + " \n");
+        System.out.println("-- TOTAL INVESTED: "+invested + " --\n");
         openPortfolioMenu();
     }
 
@@ -287,7 +287,7 @@ public class UserFacade implements Observer
                 openStartUpMenu();
                 break;
             default:
-                System.out.println("Wrong Input\n");
+                System.out.println("-- Wrong Input --\n");
                 openStocksMenu();
                 break;
         }
@@ -344,7 +344,7 @@ public class UserFacade implements Observer
             }
             else
             {
-                System.out.println("Item not Listed!");
+                System.out.println("-- Item not Listed! --");
                 openBuyMenu(assetList);
             }
         }
@@ -359,7 +359,7 @@ public class UserFacade implements Observer
     {
         double tp = 0;
         double sl = 0;
-        System.out.println("Insert the  amount of assets\n");
+        System.out.println("-- Insert the  amount of assets --\n");
 
         double numberOfAssets = input.getDoubleInput();
         boolean userhasMoney = essTrading.checkUserCredit(userID, assetID, numberOfAssets, positionType);
@@ -410,6 +410,7 @@ public class UserFacade implements Observer
         int in = input.getIntInput();
         if(in == 1)
         {
+            bugMenu.drawSecondMenu();
             String bug = input.getLineInput();
             essTrading.reportBug(userID,bug);
         }
@@ -434,7 +435,7 @@ public class UserFacade implements Observer
         List<Asset> watchList = essTrading.getInvestorWatchList(userID);
         for (Asset a : watchList){
             if(a.getId() == id){
-                System.out.println(a.getCompany() + " changed " + value + "percent!!");
+                System.out.println("--WARNING-- " + a.getCompany() + " changed " + value + "percent!!" + " --");
                 break;
             }
         }

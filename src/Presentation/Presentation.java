@@ -59,7 +59,7 @@ public class Presentation {
         sharedFacade.openLoginMenu();
         email = sharedFacade.getEmailInput();
 
-        System.out.println("Insert your Password\n");
+        sharedFacade.drawPasswordOutput();
         password = sharedFacade.getPasswordInput();
         User u;
 

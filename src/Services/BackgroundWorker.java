@@ -48,7 +48,6 @@ public class BackgroundWorker implements Subscriber, Runnable {
 
     @Override
     public void notifyObservers() {
-        System.out.println("Vou notificar");
         for (Pair name: names) {
             Asset a = (Asset) assets.get(name.getKey());
             if(a.getValue()/ (Double) name.getValue() > 1.05 && userFacade != null){
