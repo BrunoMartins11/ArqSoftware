@@ -1,6 +1,5 @@
-package BusinessModel;
+package Services;
 
-import BusinessModel.Assets.Asset;
 
 public interface Subscriber {
     public void addObserver(Observer o);

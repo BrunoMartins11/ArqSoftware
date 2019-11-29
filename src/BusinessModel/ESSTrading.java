@@ -67,7 +67,11 @@ public class ESSTrading {
 		return  this.assets;
 	}
 
-	public int getUserID(String email)
+    public BackgroundWorker getBw() {
+        return bw;
+    }
+
+    public int getUserID(String email)
 	{
 		int id = -1;
 		for(User u : users.values())

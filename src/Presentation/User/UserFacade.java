@@ -3,10 +3,11 @@ import BusinessModel.Assets.Asset;
 import BusinessModel.ESSTrading;
 import BusinessModel.Trading.CFD;
 import Presentation.InputInsert;
+import Services.Observer;
 
 import java.util.*;
 
-public class UserFacade
+public class UserFacade implements Observer
 {
     private MainMenu mainMenu;
     private StocksMenu stocksMenu;
@@ -38,11 +39,13 @@ public class UserFacade
         this.input = new InputInsert();
         this.authenticated = false;
         this.userID = -1;
+
     }
 
     public void setEssTrading(ESSTrading ess)
     {
         this.essTrading = ess;
+        essTrading.getBw().addObserver(this);
     }
 
     public void openStartUpMenu()
@@ -356,7 +359,7 @@ public class UserFacade
     {
         double tp = 0;
         double sl = 0;
-        System.out.println("Insert the amount of assets\n");
+        System.out.println("Insert the  amount of assets\n");
 
         double numberOfAssets = input.getDoubleInput();
         boolean userhasMoney = essTrading.checkUserCredit(userID, assetID, numberOfAssets, positionType);
@@ -424,5 +427,16 @@ public class UserFacade
     {
         this.authenticated = authentication;
         this.userID = userID;
+    }
+
+    @Override
+    public void update(int id, Double value) {
+        List<Asset> watchList = essTrading.getInvestorWatchList(userID);
+        for (Asset a : watchList){
+            if(a.getId() == id){
+                System.out.println(a.getCompany() + " changed " + value + "percent!!");
+                break;
+            }
+        }
     }
 }

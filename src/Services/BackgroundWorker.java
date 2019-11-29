@@ -2,8 +2,7 @@ package Services;
 
 import BusinessModel.Assets.Asset;
 import BusinessModel.Assets.AssetType;
-import BusinessModel.Observer;
-import BusinessModel.Subscriber;
+import Presentation.User.UserFacade;
 import com.intrinio.api.SecurityApi;
 import com.intrinio.invoker.ApiClient;
 import com.intrinio.invoker.ApiException;
@@ -18,9 +17,10 @@ import java.util.List;
 import java.util.Map;
 
 public class BackgroundWorker implements Subscriber, Runnable {
-    Map<String, Observer> assets;
-    List<Pair<String, Double>> names;
-    boolean exit;
+    private Map<String, Observer> assets;
+    private List<Pair<String, Double>> names;
+    private UserFacade userFacade;
+    private boolean exit;
 
     public BackgroundWorker() {
         assets = new HashMap<>();
@@ -35,6 +35,10 @@ public class BackgroundWorker implements Subscriber, Runnable {
             Asset a = (Asset) o;
             this.assets.put(a.getCompany(),a);
         }
+        if(o instanceof UserFacade){
+            System.out.println("Registei");
+            userFacade = (UserFacade) o;
+        }
     }
 
     @Override
@@ -44,8 +48,16 @@ public class BackgroundWorker implements Subscriber, Runnable {
 
     @Override
     public void notifyObservers() {
+        System.out.println("Vou notificar");
         for (Pair name: names) {
-            assets.get(name.getKey()).update((Double) name.getValue());
+            Asset a = (Asset) assets.get(name.getKey());
+            if(a.getValue()/ (Double) name.getValue() > 1.05 && userFacade != null){
+                userFacade.update(a.getId(), (a.getValue()/ (Double) name.getValue() -1)*100 );
+            } else if(a.getValue()/ (Double) name.getValue() > 0.05 && userFacade != null){
+                userFacade.update(a.getId(), (a.getValue()/ (Double) name.getValue())*100 );
+            }
+            a.update(a.getId(), (Double) name.getValue());
+
         }
     }
 
@@ -68,7 +80,6 @@ public class BackgroundWorker implements Subscriber, Runnable {
                             RealtimeStockPrice result = securityApi.getSecurityRealtimePrice(a.getCompany(), null);
                             if(result.getLastPrice().doubleValue() != a.getValue()){
                                 names.add(new Pair<>(a.getCompany(), result.getLastPrice().doubleValue()));
-                                System.out.println("Value Update: " + result.getLastPrice().doubleValue());
                             }
                         }
                     }
