@@ -1,26 +1,28 @@
 package Presentation.Admin;
 
+import BusinessModel.Assets.Asset;
 import BusinessModel.ESSTrading;
 import BusinessModel.Report.Bug;
 import Presentation.InputInsert;
-import Presentation.Shared.SharedFacade;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class AdminFacade
 {
-    private SharedFacade sharedFacade;
     private boolean authenticated;
     private ESSTrading essTrading;
     private MainMenu mainMenu;
+    private Stocks stocksMenu;
     private InputInsert input;
     private int userID;
 
-    public AdminFacade(SharedFacade sharedFacade)
+    public AdminFacade()
     {
-        this.sharedFacade = sharedFacade;
         this.mainMenu = new MainMenu();
         this.input = new InputInsert();
+        this.stocksMenu = new Stocks();
         this.authenticated = false;
     }
 
@@ -32,8 +34,49 @@ public class AdminFacade
     public void openMainMenu() {
         mainMenu.drawMainMenu();
 
-        int in = this.input.getIntInput();
-        processInput(in);
+        if(authenticated)
+        {
+            int in = this.input.getIntInput();
+            processInput(in);
+        }
+        else
+        {
+            System.out.println("-- User not Authenticated --");
+        }
+    }
+
+    private void openStocksMenu()
+    {
+        this.stocksMenu.drawMainMenu();
+        int inp = input.getIntInput();
+        processInputStocks(inp);
+    }
+
+    private void processInputStocks(int inp)
+    {
+        String type = "";
+        Collection<Asset> assets = new ArrayList<>();
+        switch (inp)
+        {
+            case 1:
+                type = "COMMODITY";
+                assets = essTrading.getAssetsByType(type).values();
+                this.stocksMenu.drawSecondMenu(assets,type);
+                break;
+            case 2:
+                type = "COIN";
+                assets = essTrading.getAssetsByType(type).values();
+                this.stocksMenu.drawSecondMenu(assets,type);
+                break;
+            case 3:
+                type = "STOCK";
+                assets = essTrading.getAssetsByType(type).values();
+                this.stocksMenu.drawSecondMenu(assets,type);
+                break;
+            default:
+                openMainMenu();
+                break;
+        }
     }
 
     private void processInput(int in)
@@ -41,16 +84,15 @@ public class AdminFacade
         switch (in)
         {
             case 1:
-                sharedFacade.openStocksMenu();
+                openStocksMenu();
                 openMainMenu();
                 break;
             case 2:
                 openBugsMenu();
                 break;
-            case 3:
+            default:
                 exit();
                 break;
-
         }
     }
 

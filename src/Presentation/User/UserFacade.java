@@ -437,7 +437,7 @@ public class UserFacade implements Observer
         if(watchList != null)
         {
             for (Asset a : watchList){
-                if(a != null) //TODO ADDED
+                if(a != null)
                 {
                     if(a.getId() == id){
                         System.out.println("--WARNING-- " + a.getCompany() + " changed " + value + "percent!!" + " --");

@@ -4,7 +4,6 @@ import Presentation.MainUser;
 
 public class MainMenu implements MainUser
 {
-
     @Override
     public void drawMainMenu()
     {

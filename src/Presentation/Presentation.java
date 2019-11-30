@@ -16,7 +16,7 @@ public class Presentation {
     public Presentation(ESSTrading ess) {
         sharedFacade = new SharedFacade();
         userFacade = new UserFacade();
-        adminFacade = new AdminFacade(sharedFacade);
+        adminFacade = new AdminFacade();
         essTrading = ess;
 
         sharedFacade.setEssTrading(essTrading);

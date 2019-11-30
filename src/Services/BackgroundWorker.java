@@ -36,7 +36,7 @@ public class BackgroundWorker implements Subscriber, Runnable {
             this.assets.put(a.getCompany(),a);
         }
         if(o instanceof UserFacade){
-            System.out.println("Registei");
+            //System.out.println("Registei"); TODO CHECK
             userFacade = (UserFacade) o;
         }
     }
