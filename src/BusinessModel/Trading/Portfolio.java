@@ -15,6 +15,7 @@ public class Portfolio {
 	public Portfolio() {
 		id = (new PortfolioDAO()).getAll().size()+1;
 		CFDs = new ArrayList<>();
+		watchList = new ArrayList<>();
 		(new PortfolioDAO()).save(this);
 	}
 
